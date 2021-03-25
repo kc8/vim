@@ -36,3 +36,6 @@
 ### Search Find and Replace 
 1. `` :s/foo/bar/g `` Find each occurrence of 'foo' (in the current line only), and replace it with 'bar'.
 2. `` :%s/foo/bar/g`` Find each occurrence of 'foo' (in all lines), and replace it with 'bar'.
+
+### Edit VIMRC Quickly
+:e $MYVIMRC
