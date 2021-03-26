@@ -7,7 +7,11 @@
 
 - w: to move to the start of a word
 - b: to move back one word 
- 
+
+### Locations
+Windows: ~/AppData/Local/nvim/
+Linux/unix: ~/ 
+
 ### Yanking or Copying
 - yy: yank or make a copy of the line 
 
