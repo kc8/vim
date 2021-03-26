@@ -17,7 +17,44 @@ set incsearch
 set colorcolumn=80
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-call plug#begin('~/vim/plugged')
+call plug#begin('~/AppData/Local/nvim/plugged')
+ 
+ "Plug 'preservim/nerdtree'
+ Plug 'morhetz/gruvbox'
+ Plug 'jremmen/vim-ripgrep'
+ Plug 'tpope/vim-fugitive'
+ Plug 'vim-utils/vim-man'
+ Plug 'lyuts/vim-rtags'
+ Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
+ Plug 'https://github.com/ycm-core/YouCompleteMe.git' 
+ "Plug 'git@github.com:ycm-core/YouCompleteMe'
+ "Plug 'git@github.com:ctrlpvim/ctrlp.vim'
+ Plug 'mbbill/undotree'
+
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+ 
+call plug#end()
+
+set noerrorbells
+set tabstop=4 softtabstop=4
+set shiftwidth=4
+set expandtab 
+set smartindent
+set nu 
+set nowrap
+set smartcase
+set noswapfile
+set nobackup 
+set undodir=~/.vim./undodir
+set undofile
+set incsearch
+set encoding=utf-8
+set colorcolumn=100
+
+highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+call plug#begin('~/AppData/Local/nvim/plugged')
  
  Plug 'preservim/nerdtree'
  Plug 'gruvbox-community/gruvbox'
@@ -81,7 +118,7 @@ let g:ale_sign_warning = 'W•'
 let g:ale_sign_info = '·'
 let g:ale_sign_style_error = 'S'
 let g:ale_sign_style_warning = 'W'
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+let g:ale_linters = { 'ccp':['gcc'], 'cs': ['OmniSharp'] }
 " }}}
 
 " Asyncomplete: {{{
