@@ -13,13 +13,21 @@ set nobackup
 set undodir=~/.vim./undodir
 set undofile
 set incsearch
-
 set colorcolumn=80
+set title
+
+" BELOW ARE WINDWOS AND NVIMQT SPECIFIC SETTINGS
+"Allow right click, NVIMQT, for copy paste
+nnoremap <silent><RightMouse> :call GuiShowContextMenu()<CR>
+" Windows CD into Documents
+:cd $USERPROFILE\Documents
+:set mouse=a
+"END SPECIFIC SETTINGS
+
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/AppData/Local/nvim/plugged')
  
- "Plug 'preservim/nerdtree'
  Plug 'morhetz/gruvbox'
  Plug 'jremmen/vim-ripgrep'
  Plug 'tpope/vim-fugitive'
@@ -27,53 +35,14 @@ call plug#begin('~/AppData/Local/nvim/plugged')
  Plug 'lyuts/vim-rtags'
  Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
  Plug 'https://github.com/ycm-core/YouCompleteMe.git' 
- "Plug 'git@github.com:ycm-core/YouCompleteMe'
+ Plug 'git@github.com:ycm-core/YouCompleteMe'
  "Plug 'git@github.com:ctrlpvim/ctrlp.vim'
  Plug 'mbbill/undotree'
 
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | endif
  
 call plug#end()
-
-set noerrorbells
-set tabstop=4 softtabstop=4
-set shiftwidth=4
-set expandtab 
-set smartindent
-set nu 
-set nowrap
-set smartcase
-set noswapfile
-set nobackup 
-set undodir=~/.vim./undodir
-set undofile
-set incsearch
-set encoding=utf-8
-set colorcolumn=100
-
-highlight ColorColumn ctermbg=0 guibg=lightgrey
-
-call plug#begin('~/AppData/Local/nvim/plugged')
- 
- Plug 'preservim/nerdtree'
- Plug 'gruvbox-community/gruvbox'
- Plug 'jremmen/vim-ripgrep'
- Plug 'tpope/vim-fugitive'
- Plug 'vim-utils/vim-man'
- Plug 'lyuts/vim-rtags'
- Plug 'https://github.com/ctrlpvim/ctrlp.vim.git'
- Plug 'https://github.com/ycm-core/YouCompleteMe.git' 
- Plug 'mbbill/undotree'
- Plug 'OmniSharp/omnisharp-vim'
- Plug 'https://github.com/OrangeT/vim-csharp.git'
- Plug 'ckspoons/vim-sharpenup' 
- Plug 'dense-analysis/ale'
- "Was causing issues
-"Plug 'prabirshrestha/asyncomplete.vim'
-
-
- call plug#end()
  
  "C# Configuration
  let s:using_snippets = 0
@@ -105,7 +74,7 @@ call plug#begin('~/AppData/Local/nvim/plugged')
 " }}}
 
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | endif
 
 " Colors {{{
  set background=dark
