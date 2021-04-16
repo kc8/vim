@@ -14,6 +14,7 @@ Linux/unix: ~/
 
 ### Yanking or Copying
 - yy: yank or make a copy of the line 
+- -y$: yank everything from current cursor to end of line
 
 ### Manipulate the line
 - p: place the line 1 line below current cursor position
@@ -43,3 +44,4 @@ Linux/unix: ~/
 
 ### Edit VIMRC Quickly
 :e $MYVIMRC
+
