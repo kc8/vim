@@ -44,4 +44,6 @@ Linux/unix: ~/
 
 ### Edit VIMRC Quickly
 :e $MYVIMRC
+  
+When done, reload with ``:so $MYVIMRC``
 
