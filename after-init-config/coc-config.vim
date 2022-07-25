@@ -1,3 +1,29 @@
+" Required LSPs:
+" Needs bash-language-server installed
+let g:coc_global_extensions = [
+      \ 'coc-tsserver', 
+      \ 'coc-json', 
+      \ 'coc-git',
+      \ 'coc-json',
+      \ 'coc-spell-checker',
+      \ 'coc-metals',
+      \ 'coc-java',
+      \ 'coc-go',
+      \ 'coc-css',
+      \ 'coc-html',
+      \ 'coc-markdown-preview-enhanced',
+      \ 'coc-sh', 
+      \ ]
+
+" js specific depending on node modules used
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
+
 " **** COC Mappings **** 
 " TODO pull this out into a seprate vimrc file 
 " RESOURCE(S) FROM: https://github.com/scalameta/coc-metals/blob/main/coc-mappings.vim

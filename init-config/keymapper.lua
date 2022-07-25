@@ -1,9 +1,10 @@
 local keyMapper = {} 
 
-local function mapperFunction(operationType) 
-    opts = {noremap = true}
-    return function(lhs, rhs)
-        vim.keymap.set(operationType, lhs, rhs, opts)
+local function mapperFunction(operation, defaultOperations) 
+    defaultOperations = defaultOperations or {noremap = true} 
+    return function(lhs, rhs, opts)
+        opts = vim.tbl_extend("force", defaultOperations, opts or {})
+        vim.keymap.set(operation, lhs, rhs, opts)
     end
 end
 
