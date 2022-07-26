@@ -25,7 +25,8 @@ return require('packer').startup(function()
 
     use('mbbill/undotree')
 
-    use('kc8/first_vim_plugin')
+    -- use('kc8/first_vim_plugin')
+    
     -- NOTE this uses a specific branch
     use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
@@ -34,5 +35,10 @@ return require('packer').startup(function()
           {'BurntSushi/ripgrep'}
       }
     }
+
+    -- Packer needs to know where it is to prevent it from removing 
+    -- itself...
+    -- Source https://github.com/wbthomason/packer.nvim/issues/718
+    use {'wbthomason/packer.nvim'}
 
 end)

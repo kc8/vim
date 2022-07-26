@@ -1,4 +1,4 @@
--- vim.opt.syntax = -- Need to figure out how to set this to "ON"
+ vim.opt.syntax = "on" 
 
 vim.opt.errorbells = false
 vim.opt.tabstop = 4 

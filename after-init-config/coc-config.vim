@@ -1,3 +1,6 @@
+" tooltip hover with cursor
+nnoremap <silent> K :call CocAction('doHover')<CR>
+
 " Required LSPs:
 " Needs bash-language-server installed
 let g:coc_global_extensions = [

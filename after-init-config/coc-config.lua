@@ -1,4 +1,3 @@
---TODO break this out into lua or find another way to source this 
-thisDir = os.getenv("PWD") .. "/after-init-config/"
--- print(thisDir)
-vim.cmd('source' ..thisDir .. '/coc-config.vim')
+-- TODO make this more robust, covnert the coc-config into lua or something else
+thisDir = "~/.config/nvim/lua/vim/after-init-config/"
+vim.cmd('source' ..thisDir .. 'coc-config.vim')
