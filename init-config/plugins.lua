@@ -24,6 +24,7 @@ return require('packer').startup(function()
     use('vim-airline/vim-airline')
 
     use('mbbill/undotree')
+    use('sheerun/vim-polyglot')
 
     -- use('kc8/first_vim_plugin')
     
