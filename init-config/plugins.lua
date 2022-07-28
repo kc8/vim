@@ -16,6 +16,8 @@ return require('packer').startup(function()
         'neoclide/coc.nvim', branch ='release'
     }
 
+    use {'neovim/nvim-lspconfig'}
+
     use('editorconfig/editorconfig-vim')
 
     --Git 
