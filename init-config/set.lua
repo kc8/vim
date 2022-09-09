@@ -30,3 +30,8 @@ vim.opt.colorcolumn = "80"
 vim.opt.title = true
 
 vim.g.mapleader = "\\" --Default
+
+-- TODO vim..opt.mouse does not work for this
+vim.cmd [[set mouse=a]]
+
+vim.cmd [[set runtimepath^=~\Documents\game_engine_playground\coc-msvc\vscode-cpptools\Extension"]]

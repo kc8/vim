@@ -16,6 +16,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-markdown-preview-enhanced',
       \ 'coc-sh', 
+      "\ 'coc-clangd',
       \ ]
 
 " js specific depending on node modules used
