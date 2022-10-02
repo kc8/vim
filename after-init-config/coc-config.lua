@@ -9,5 +9,7 @@ function getCocConfigVimFile()
         return windowsResult
     end
 end
+
 thisDir = getCocConfigVimFile()
 vim.cmd('source' ..thisDir .. 'coc-config.vim')
+vim.cmd('source' ..thisDir .. 'c_sharp_config.vim')

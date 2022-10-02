@@ -28,6 +28,7 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.colorcolumn = "80"
 vim.opt.title = true
+vim.opt.relativenumber = true
 
 vim.g.mapleader = "\\" --Default
 
