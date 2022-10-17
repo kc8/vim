@@ -18,4 +18,6 @@ vim.opt.colorcolumn = "80"
 vim.opt.title = true
 vim.opt.relativenumber = true
 
+vim.cmd [[set mouse=a]]
+
 vim.g.mapleader = "\\" --Default
