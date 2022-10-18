@@ -4,13 +4,13 @@ nnoremap <silent> K :call CocAction('doHover')<CR>
 " Required LSPs:
 " Needs bash-language-server installed
       " \ 'coc-go',
+      " \ 'coc-metals',
 let g:coc_global_extensions = [
       \ 'coc-tsserver', 
       \ 'coc-json', 
       \ 'coc-git',
       \ 'coc-json',
       \ 'coc-spell-checker',
-      \ 'coc-metals',
       \ 'coc-java',
       \ 'coc-css',
       \ 'coc-html',
