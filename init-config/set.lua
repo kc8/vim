@@ -1,4 +1,7 @@
- vim.opt.syntax = "on" 
+local osSettings = require("vim.get_os")
+local localConfigDir = osSettings.getVimConfigDir
+
+vim.opt.syntax = "on" 
 
 vim.opt.errorbells = false
 vim.opt.tabstop = 4 
@@ -11,7 +14,8 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false 
-vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
+--vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir=localConfigDir .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.colorcolumn = "80"
