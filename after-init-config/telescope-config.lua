@@ -24,6 +24,11 @@ nnoremap("<C-k>", function()
     require('telescope.builtin').buffers()    
 end) 
 
+nnoremap("<Leader>lg", function() 
+    require('telescope.builtin').live_grep()
+end) 
+
+
 
 telescope.setup({
     defaults = {
@@ -33,5 +38,6 @@ telescope.setup({
               ["<C-k>"] = actions.move_selection_previous,
             },
         },
+        file_ignore_patterns = { "target", "node_modules" },
     },
 })

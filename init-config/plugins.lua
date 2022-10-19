@@ -12,9 +12,7 @@ return require('packer').startup(function()
     --use('junegunn/fzf') --NOTE this needs to be installed
     --use('junegunn/fzf.vim')
 
-    use { 
-        'neoclide/coc.nvim', branch ='release'
-    }
+    -- use { 'neoclide/coc.nvim', branch ='release' }
 
     use {'neovim/nvim-lspconfig'}
 
@@ -31,6 +29,9 @@ return require('packer').startup(function()
     -- use('kc8/first_vim_plugin')
     
     -- NOTE this uses a specific branch
+    -- To get ripgrep working, we need to install rg 
+    -- and add it to our path. Instructions are on their 
+    -- git repo
     use {
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
       requires = { 
@@ -43,5 +44,28 @@ return require('packer').startup(function()
     -- itself...
     -- Source https://github.com/wbthomason/packer.nvim/issues/718
     use {'wbthomason/packer.nvim'}
+ 
+    -- auto completion, settings aree in lspconfig.nvim.lua
+    use {
+            'hrsh7th/nvim-cmp',
+            requires = { 
+                { 'hrsh7th/cmp-nvim-lsp' },
+                { 'hrsh7th/cmp-vsnip' },
+                { 'hrsh7th/vim-vsnip' },
+            }
+        }
+
+    use {
+            'scalameta/nvim-metals',
+            requires = { 
+                { 'nvim-lua/plenary.nvim' },
+                { 'mfussenegger/nvim-dap' },
+            }
+        }
+
+    use {'nvim-lua/plenary.nvim'}
+
+    -- Adds some nice-to-haves to built in lsp 
+    use { "glepnir/lspsaga.nvim" }
 
 end)

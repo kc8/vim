@@ -14,19 +14,20 @@ nnoremap <silent> K :call CocAction('doHover')<CR>
 " Required LSPs:
 " Needs bash-language-server installed
       " \ 'coc-go',
+      " \ 'coc-metals',
 let g:coc_global_extensions = [
       \ 'coc-tsserver', 
       \ 'coc-json', 
       \ 'coc-git',
       \ 'coc-json',
       \ 'coc-spell-checker',
-      \ 'coc-metals',
       \ 'coc-java',
       \ 'coc-css',
       \ 'coc-html',
       \ 'coc-markdown-preview-enhanced',
       \ 'coc-sh', 
       \ 'coc-clangd', 
+      \ 'coc-webview', 
       \ ]
 
 " js specific depending on node modules used
@@ -69,11 +70,11 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by another plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+ "inoremap <silent><expr> <TAB>
+      "\ coc#pum#visible() ? coc#pum#next(1) :
+      "\ check_back_space() ? "\<Tab>" :
+      "\ coc#refresh()
+ " inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Used in the tab autocompletion for coc
 function! s:check_back_space() abort

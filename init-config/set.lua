@@ -1,14 +1,5 @@
- 
--- TODO: improvments and NOTE: the else statement is really for windows and the os.getenv("HOME") is 
--- for all unix/linux oses
-function getUndoDir() 
-    local home = os.getenv("HOME")
-    if home ~= nil then 
-        return home
-    else 
-        return "~/"
-    end
-end
+local osSettings = require("vim.get_os")
+local localConfigDir = osSettings.getVimConfigDir
 
 vim.opt.syntax = "on" 
 
@@ -23,16 +14,15 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false 
-vim.opt.undodir=getUndoDir("HOME") .. "/.vim/undodir"
+-- OLD METHOD DOES NOT WORK CORRECT ON WINDOWS 
+-- vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undodir=localConfigDir .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.colorcolumn = "80"
 vim.opt.title = true
 vim.opt.relativenumber = true
-
 vim.g.mapleader = "\\" --Default
 
 -- TODO vim..opt.mouse does not work for this
 vim.cmd [[set mouse=a]]
-
-vim.cmd [[set runtimepath^=~\Documents\game_engine_playground\coc-msvc\vscode-cpptools\Extension"]]
