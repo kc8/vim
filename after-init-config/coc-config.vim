@@ -1,6 +1,16 @@
 " tooltip hover with cursor
 nnoremap <silent> K :call CocAction('doHover')<CR>
 
+" TODO will not work 
+" function! s:disable_coc_per_buffer()
+ "let l:blacklist = ['c', 'cpp', 'h', 'hpp']
+ " if index(l:blacklist, &filetype) == -1
+ "   let b:coc_enabled = 0
+ " endif
+" endfunction 
+
+" autocmd BufNew,BufEnter * call s:disable_coc_per_buffer()
+
 " Required LSPs:
 " Needs bash-language-server installed
       " \ 'coc-go',
@@ -16,6 +26,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-markdown-preview-enhanced',
       \ 'coc-sh', 
+      \ 'coc-clangd', 
       \ 'coc-webview', 
       \ ]
 

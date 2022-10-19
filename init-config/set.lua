@@ -14,14 +14,15 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false 
---vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
+-- OLD METHOD DOES NOT WORK CORRECT ON WINDOWS 
+-- vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undodir=localConfigDir .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.opt.colorcolumn = "80"
 vim.opt.title = true
 vim.opt.relativenumber = true
-
-vim.cmd [[set mouse=a]]
-
 vim.g.mapleader = "\\" --Default
+
+-- TODO vim..opt.mouse does not work for this
+vim.cmd [[set mouse=a]]
