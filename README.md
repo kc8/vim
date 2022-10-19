@@ -1,25 +1,13 @@
-# VIM RC FILES AND CONFIG 
+# NOTES
+This is a basic setup for using C/C++ and C# (which needs a little attention)
 
+Currently most settings geared towards NVim and NVimQT. I did not 
+include the ginit.vim as it needs some help. 
 
-## Setup (working on Linux/Unix)
+# VIM
 
-1. Create an init.lua (or init.vim) insider of the config directory (~/.config/nvim/[xxxx]) for your VIM setup
-1. Create a ./lua directory there and pull down this repo inside of that directory
-1. Inside the init.lua that you created earlier, require("vim") and everything should start to function -> or if uising .vimrc, source the .vimrc file as needed)
-1. Install [Packer](https://github.com/wbthomason/packer.nvim) 
-1. After installing packer, you should be able to restart the nvim session and run `:packer install`
+# NEOVIM 
 
-## Using LUA
-Inside the config path for VIM you will need to create something c 'lua', for example lua/vim. VIM will look inside the lua for namespaces. So your init.lua file will look like 
-
-```sh 
-require("vim")
-```
-
-which will tell vim to look inside the lua directory and then look for the vim (or this repo)
-
-## Important Notes
-- Telescope plugin uses a specific tag for release
-
-## Plugin Docs
-[Telescope](https://github.com/nvim-telescope/telescope.nvim)
+# TODO
+- [ ] Finish the windows_setup.bat. Add, automatic setup to add init.vim into 
+correct directory. Add Plugin Install. See if I can automate YCM
