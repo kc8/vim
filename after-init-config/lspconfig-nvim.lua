@@ -72,6 +72,15 @@ require('lspconfig')['java_language_server'].setup{
     cmd = {"sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh"},
 }
 
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true 
+require('lspconfig')['terraformls'].setup{
+  pattern = {"*.tf", "*.tfvars"},
+  callback = vim.lsp.buf.formatting_sync,
+  capabilities = capabilities,
+}
+
 -- nvim-cmp settings
 -- Taken from https://github.com/scalameta/nvim-metals/discussions/39
 local cmp = require("cmp")
@@ -87,6 +96,7 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
+      ['<C-Space>'] = cmp.mapping.complete(),
     -- None of this made sense to me when first looking into this since there
     -- is no vim docs, but you can't have select = true here _unless_ you are
     -- also using the snippet stuff. So keep in mind that if you remove
