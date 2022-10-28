@@ -72,6 +72,11 @@ require('lspconfig')['java_language_server'].setup{
     cmd = {"sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh"},
 }
 
+require('lspconfig')['terraformls'].setup{
+  on_attach = on_attach, 
+  flags = lsp_flags, 
+}
+
 -- nvim-cmp settings
 -- Taken from https://github.com/scalameta/nvim-metals/discussions/39
 local cmp = require("cmp")

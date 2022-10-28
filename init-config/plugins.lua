@@ -22,6 +22,8 @@ return require('packer').startup(function()
     use('tpope/vim-fugitive')
     --Git What branch am I in?
     use('vim-airline/vim-airline')
+    -- git in the gutter!
+    use('airblade/vim-gitgutter')
 
     use('mbbill/undotree')
     use('sheerun/vim-polyglot')
