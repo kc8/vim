@@ -49,6 +49,12 @@ local on_attach = function(client, bufnr)
 
   map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
   map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
+
+  local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
 end
 
 -- requires the tserber installed and on path
@@ -60,6 +66,16 @@ require('lspconfig')['tsserver'].setup{
 -- Requires vscode-lanaguage-server installed and on path
 require('lspconfig')['eslint'].setup{
     on_attach = on_attach,
+    flags = lsp_flags,
+}
+-- Requires vscode-lanaguage-server installed and on path
+require('lspconfig')['cssls'].setup{
+    on_attach = on_attach,
+    cmd = {"vscode-css-language-server", "--stdio"},
+    filetypes = {"css", "scss"},
+    --root_dir = root_pattern("package.json", ".git"),
+    settings = {css = {validate=true}, scss={validate=true}},
+    single_file_support = true,
     flags = lsp_flags,
 }
 

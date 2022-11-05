@@ -10,4 +10,6 @@ end
 
 -- example replacement nnoremap <silent> <C-f> :Rg 
 keyMapper.nnoremap = mapperFunction("n") --nnoremap
+keyMapper.vnoremap = mapperFunction("v")
+keyMapper.inoremap = mapperFunction("i") 
 return keyMapper

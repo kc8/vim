@@ -24,6 +24,7 @@ return require('packer').startup(function()
     use('vim-airline/vim-airline')
     -- git in the gutter!
     use('airblade/vim-gitgutter')
+    use('tpope/vim-rhubarb')
 
     use('mbbill/undotree')
     use('sheerun/vim-polyglot')
