@@ -89,6 +89,7 @@ require('lspconfig')['cssls'].setup{
 
 -- https://github.com/golang/tools/tree/master/gopls 
 require('lspconfig')['gopls'].setup{
+  on_attach = on_attach,
   cmd = {'gopls'},
   filetypes = { "go", "gomod", "gowork", "gotmpl" }, 
   root_dir = util.root_pattern('go.mod', '.git'),
