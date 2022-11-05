@@ -3,6 +3,8 @@ local nnoremap = keymapper.nnoremap
 local api = vim.api
 local cmd = vim.cmd
 
+local util = require 'lspconfig.util'
+
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then
@@ -83,6 +85,14 @@ require('lspconfig')['cssls'].setup{
     settings = {css = {validate=true}, scss={validate=true}},
     single_file_support = true,
     flags = lsp_flags,
+}
+
+-- https://github.com/golang/tools/tree/master/gopls 
+require('lspconfig')['gopls'].setup{
+  cmd = {'gopls'},
+  filetypes = { "go", "gomod", "gowork", "gotmpl" }, 
+  root_dir = util.root_pattern('go.mod', '.git'),
+  single_file_supprt = true,
 }
 
 -- Requires vscode-lanaguage-server installed and on path
