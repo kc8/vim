@@ -7,3 +7,4 @@ nnoremap("<leader>gj", ":diffget //2<CR>")
 
 --Open git status
 nnoremap("<leader>gs", ":G<CR>")
+

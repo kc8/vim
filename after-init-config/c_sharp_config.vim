@@ -38,3 +38,6 @@ let g:sharpenup_statusline_opts = {
 \ 'HiReady': 'SharpenUpReady',
 \ 'HiDead': 'SharpenUpDead'
 \} "}}}
+
+let g:github_enterprise_urls = ['https://ghe.coxautoinc.com']
+
