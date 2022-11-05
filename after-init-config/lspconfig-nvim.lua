@@ -55,6 +55,12 @@ end
 require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
+
+}
+-- requires the tserber installed and on path
+require('lspconfig')['clangd'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
 }
 
 -- Requires vscode-lanaguage-server installed and on path
