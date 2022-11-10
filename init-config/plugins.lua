@@ -71,4 +71,7 @@ return require('packer').startup(function()
     -- Adds some nice-to-haves to built in lsp 
     use { "glepnir/lspsaga.nvim" }
 
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'ThePrimeagen/harpoon' }
+
 end)
