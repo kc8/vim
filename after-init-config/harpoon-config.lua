@@ -26,7 +26,6 @@ end)
 
 
 local function conCatString(a, b) 
-    print(a, b)
     return string.format("%s%s", a, b)
 end
 
