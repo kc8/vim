@@ -74,4 +74,6 @@ return require('packer').startup(function()
     use { 'nvim-lua/plenary.nvim' }
     use { 'ThePrimeagen/harpoon' }
 
+    use { 'ziglang/zig.vim' }
+
 end)
