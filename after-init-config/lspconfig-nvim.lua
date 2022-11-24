@@ -105,8 +105,21 @@ require('lspconfig')['java_language_server'].setup{
     cmd = {"sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh"},
 }
 
+-- https://github.com/sumneko/lua-language-server
+require('lspconfig')['sumneko_lua'].setup{
+    on_attach = on_attach,
+    settings = {
+      runtime = {
+        version = "Lua 5.3",
+        path = {
+          '?.lua',
+        }
+      }
+    }
+}
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true 
+capabilities.textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup{
   pattern = {"*.tf", "*.tfvars"},
   callback = vim.lsp.buf.formatting_sync,
