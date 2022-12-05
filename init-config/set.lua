@@ -35,3 +35,8 @@ vim.cmd [[set mouse=a]]
 nnoremap("<C-c>", "<Esc>")
 inoremap("<C-c>", "<Esc>")
 vnoremap("<C-c>", "<Esc>")
+
+nnoremap("<c-d>", "c-d>zz")
+nnoremap("<c-u>", "c-u>zz")
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")
