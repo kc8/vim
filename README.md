@@ -1,7 +1,6 @@
-# VIM RC FILES AND CONFIG 
+# NVim Config Files 
 
-
-## Setup (working on Linux/Unix)
+## Initial Setup (working on Linux/Unix)
 
 1. Create an init.lua (or init.vim) insider of the config directory (~/.config/nvim/[xxxx]) for your VIM setup
 1. Create a ./lua directory there and pull down this repo inside of that directory
@@ -15,11 +14,11 @@ Inside the config path for VIM you will need to create something c 'lua', for ex
 ```sh 
 require("vim")
 ```
-
 which will tell vim to look inside the lua directory and then look for the vim (or this repo)
 
-## Important Notes
-- Telescope plugin uses a specific tag for release
+## LSPs 
+These need to be installed seperatley and added to paths so that nvim lsp can initalize them when opening their respetive files
+There are some docs inside the lsp config files on how to get started
 
-## Plugin Docs
-[Telescope](https://github.com/nvim-telescope/telescope.nvim)
+## Other Notes
+- Telescope plugin uses a specific tag for release
