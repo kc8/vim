@@ -4,7 +4,6 @@ local api = vim.api
 local cmd = vim.cmd
 
 local util = require 'lspconfig.util'
-
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then
@@ -63,8 +62,8 @@ end
 require('lspconfig')['tsserver'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
-
 }
+
 -- requires the tserber installed and on path
 require('lspconfig')['clangd'].setup{
     on_attach = on_attach,
@@ -76,6 +75,7 @@ require('lspconfig')['eslint'].setup{
     on_attach = on_attach,
     flags = lsp_flags,
 }
+
 -- Requires vscode-lanaguage-server installed and on path
 require('lspconfig')['cssls'].setup{
     on_attach = on_attach,
@@ -96,6 +96,7 @@ require('lspconfig')['gopls'].setup{
   single_file_supprt = true,
 }
 
+-- TODO we need to update the language server to be windows/ mac etc. specific
 -- Requires vscode-lanaguage-server installed and on path
 -- Needs to built with the current jdk version 
 -- then the command to the starting teh server is here
@@ -175,7 +176,7 @@ metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 metals_config.on_attach = on_attach;
 metals_config.settings = {
   showImplicitArguments = true,
-  -- excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 }
 
 local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
