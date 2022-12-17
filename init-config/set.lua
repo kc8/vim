@@ -1,6 +1,11 @@
 local osSettings = require("vim.get_os")
 local localConfigDir = osSettings.getVimConfigDir
 
+local keymapper = require("vim.init-config.keymapper")
+local nnoremap = keymapper.nnoremap
+local inoremap = keymapper.inoremap
+local vnoremap = keymapper.vnoremap
+
 vim.opt.syntax = "on" 
 
 vim.opt.errorbells = false
@@ -26,3 +31,12 @@ vim.g.mapleader = "\\" --Default
 
 -- TODO vim..opt.mouse does not work for this
 vim.cmd [[set mouse=a]]
+
+nnoremap("<C-c>", "<Esc>")
+inoremap("<C-c>", "<Esc>")
+vnoremap("<C-c>", "<Esc>")
+
+nnoremap("<c-d>", "<c-d>zz")
+nnoremap("<c-u>", "<c-u>zz")
+nnoremap("n", "nzzzv")
+nnoremap("N", "Nzzzv")

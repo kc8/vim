@@ -22,6 +22,9 @@ return require('packer').startup(function()
     use('tpope/vim-fugitive')
     --Git What branch am I in?
     use('vim-airline/vim-airline')
+    -- git in the gutter!
+    use('airblade/vim-gitgutter')
+    use('tpope/vim-rhubarb')
 
     use('mbbill/undotree')
     use('sheerun/vim-polyglot')
@@ -67,5 +70,10 @@ return require('packer').startup(function()
 
     -- Adds some nice-to-haves to built in lsp 
     use { "glepnir/lspsaga.nvim" }
+
+    use { 'nvim-lua/plenary.nvim' }
+    use { 'ThePrimeagen/harpoon' }
+
+    use { 'ziglang/zig.vim' }
 
 end)

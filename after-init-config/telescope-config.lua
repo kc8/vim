@@ -28,8 +28,6 @@ nnoremap("<Leader>lg", function()
     require('telescope.builtin').live_grep()
 end) 
 
-
-
 telescope.setup({
     defaults = {
         mappings = {
