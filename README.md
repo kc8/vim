@@ -1,4 +1,4 @@
-# Vim Config Files 
+# NVim Config Files 
 
 ## Initial Setup (working on Linux/Unix)
 
