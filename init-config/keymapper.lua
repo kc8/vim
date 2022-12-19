@@ -12,4 +12,5 @@ end
 keyMapper.nnoremap = mapperFunction("n") --nnoremap
 keyMapper.vnoremap = mapperFunction("v")
 keyMapper.inoremap = mapperFunction("i")
+keyMapper.xnoremap = mapperFunction("x")
 return keyMapper

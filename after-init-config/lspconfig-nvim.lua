@@ -12,7 +12,6 @@ local function map(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -189,5 +188,12 @@ api.nvim_create_autocmd("FileType", {
 })
 
 require('lspconfig')['zls'].setup{
-  on_attach = on_attach
+  on_attach = on_attach,
+  root_dir = util.root_pattern("build.zig", ".git");
+  docs = {
+    description = [[]];
+     default_config = {
+       root_dir= [[root_pattern("build.zig", ".git")]];
+     }
+  }
 }

@@ -5,6 +5,7 @@ local keymapper = require("vim.init-config.keymapper")
 local nnoremap = keymapper.nnoremap
 local inoremap = keymapper.inoremap
 local vnoremap = keymapper.vnoremap
+local xnoremap = keymapper.xnoremap
 
 vim.opt.syntax = "on" 
 
@@ -29,6 +30,9 @@ vim.opt.title = true
 vim.opt.relativenumber = true
 vim.g.mapleader = "\\" --Default
 
+vim.opt.termguicolors = true
+vim.opt.signcolumn = "yes"
+
 -- TODO vim..opt.mouse does not work for this
 vim.cmd [[set mouse=a]]
 
@@ -40,3 +44,17 @@ nnoremap("<c-d>", "<c-d>zz")
 nnoremap("<c-u>", "<c-u>zz")
 nnoremap("n", "nzzzv")
 nnoremap("N", "Nzzzv")
+
+-- select line and move around up and down
+vnoremap("J", ":m '>+1<CR>gv=gv")
+vnoremap("K", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- yank into system clipboard
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+-- find and replace in document, gets current word cursor is under
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+
