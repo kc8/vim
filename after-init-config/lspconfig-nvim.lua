@@ -209,6 +209,6 @@ require('lspconfig')['pylsp'].setup{
   on_attach = on_attach,
 }
 
-require('lspsaga').setup{
+require('lspconfig')['lspsag'].setup{
   on_attach = on_attach,
 }
