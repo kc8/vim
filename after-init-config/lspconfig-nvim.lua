@@ -209,6 +209,8 @@ require('lspconfig')['pylsp'].setup{
   on_attach = on_attach,
 }
 
-require('lspconfig')['lspsag'].setup{
+-- NOTE: lsp saga has had its settings change the format below is correct
+-- see the plugins file for how we pass the lspconfig setup function
+require('lspsaga').setup{
   on_attach = on_attach,
 }
