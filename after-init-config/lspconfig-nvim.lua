@@ -118,6 +118,13 @@ require('lspconfig')['sumneko_lua'].setup{
     }
 }
 
+-- pip install pyright
+require('lspconfig')['pyright'].setup{
+    on_attach = on_attach,
+    flags = lsp_flags,
+    command = {"pyright", "--stdio"}
+}
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup{
