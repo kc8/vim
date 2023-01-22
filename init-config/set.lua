@@ -40,6 +40,11 @@ nnoremap("<C-c>", "<Esc>")
 inoremap("<C-c>", "<Esc>")
 vnoremap("<C-c>", "<Esc>")
 
+-- TODO we want to remap esc to something other than ctrl + c but not sure what yet
+nnoremap("<C-c>", "<Esc>")
+inoremap("<C-c>", "<Esc>")
+vnoremap("<C-c>", "<Esc>")
+
 nnoremap("<c-d>", "<c-d>zz")
 nnoremap("<c-u>", "<c-u>zz")
 nnoremap("n", "nzzzv")

@@ -197,3 +197,11 @@ require('lspconfig')['zls'].setup{
      }
   }
 }
+
+require('lspconfig')['pylsp'].setup{
+  on_attach = on_attach,
+}
+
+require('lspsaga').setup{
+  on_attach = on_attach,
+}
