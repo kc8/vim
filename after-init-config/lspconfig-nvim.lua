@@ -1,4 +1,5 @@
 local keymapper = require("vim.init-config.keymapper")
+local keymap = vim.keymap.set
 local nnoremap = keymapper.nnoremap
 local api = vim.api
 local cmd = vim.cmd
@@ -49,6 +50,15 @@ local on_attach = function(client, bufnr)
 
   map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
   map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
+  -- lspsaga specific
+  keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+  -- Display defs and references for the given highlighted item
+  -- keymap("n", "<leader>s", "<cmd>Lspsaga lsp_finder<CR>")
+  -- rename occurences of word for entire file
+  -- keymap("n", "<leader>r", "<cmd>Lspsaga rename<CR>")
+  -- Peeks def, display editable popup with implementation of func dec
+  -- keymap("n", "<leader>d", "<cmd>Lspsaga peek_definition<CR>")
+  -- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
 
   local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
   for type, icon in pairs(signs) do
@@ -187,7 +197,7 @@ metals_config.settings = {
 
 local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
 api.nvim_create_autocmd("FileType", {
-  pattern = { "scala", "sbt", "java"}, -- JAVA is set here, we may want to remove it 
+  pattern = { "scala", "sbt"}, -- JAVA is set here, we may want to remove it 
   callback = function()
     require("metals").initialize_or_attach(metals_config)
   end,
@@ -212,5 +222,5 @@ require('lspconfig')['pylsp'].setup{
 -- NOTE: lsp saga has had its settings change the format below is correct
 -- see the plugins file for how we pass the lspconfig setup function
 require('lspsaga').setup{
-  on_attach = on_attach,
+  -- on_attach = on_attach,
 }

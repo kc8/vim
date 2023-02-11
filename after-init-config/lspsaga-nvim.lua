@@ -9,4 +9,3 @@ local cmd = vim.cmd
  --   server_filetype_map = {metals= {"sbt", "scala"}},
 --})
 
-keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")

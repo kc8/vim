@@ -90,4 +90,6 @@ return require('packer').startup(function()
      }
 
      use { 'nvim-treesitter/playground'}
+
+    use('nvim-tree/nvim-web-devicons')
 end)
