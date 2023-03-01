@@ -38,7 +38,7 @@ local on_attach = function(client, bufnr)
   map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
   map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
   map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>")
+  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
   -- code action was moved to lspgaga
   -- map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
   map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
@@ -51,7 +51,7 @@ local on_attach = function(client, bufnr)
   map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
   map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
   -- lspsaga specific
-  keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+   keymap({"n","v"}, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
   -- Display defs and references for the given highlighted item
   -- keymap("n", "<leader>s", "<cmd>Lspsaga lsp_finder<CR>")
   -- rename occurences of word for entire file
@@ -90,9 +90,9 @@ require('lspconfig')['cssls'].setup{
     on_attach = on_attach,
     cmd = {"vscode-css-language-server", "--stdio"},
     filetypes = {"css", "scss"},
-    --root_dir = root_pattern("package.json", ".git"),
+    root_dir = util.root_pattern("package.json", ".git"),
     settings = {css = {validate=true}, scss={validate=true}},
-    single_file_support = true,
+    -- single_file_support = true,
     flags = lsp_flags,
 }
 
