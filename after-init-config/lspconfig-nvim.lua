@@ -221,14 +221,13 @@ require('lspconfig')['yamlls'].setup {
   on_attach = on_attach,
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   cmd = { "yaml-language-server", "--stdio" },
-  filetypes = { "yaml", "yaml.docker-compose", "helm" },
+  root_dir = util.root_pattern(".git"),
+  filetypes = { "yaml", "yaml.docker-compose", "helm", "yml"},
   settings = {
     yaml = {
       redhat = { telemetry = { enabled = false } },
       schemas = {
         ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        ["../path/relative/to/file.yml"] = "/.github/workflows/*",
-        ["/path/from/root/of/project"] = "/.github/workflows/*",
         ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
 
       },

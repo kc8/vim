@@ -5,7 +5,7 @@ local actions = require('telescope.actions')
 local telescope = require('telescope')
 
 nnoremap("<C-p>", function()
-    require('telescope.builtin').find_files()
+    require('telescope.builtin').find_files({hidden=true})
 end) 
 
 nnoremap("<C-g>", function()
@@ -25,7 +25,7 @@ nnoremap("<C-k>", function()
 end) 
 
 nnoremap("<Leader>lg", function()
-    require('telescope.builtin').live_grep()
+    require('telescope.builtin').live_grep({hidden=true})
 end) 
 
 telescope.setup({
