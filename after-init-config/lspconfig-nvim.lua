@@ -113,17 +113,31 @@ require('lspconfig')['java_language_server'].setup {
   cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
 }
 
--- https://github.com/sumneko/lua-language-server
-require('lspconfig')['sumneko_lua'].setup {
+-- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
+require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
+  cmd = {"lua-language-server"};
+  root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git");
   settings = {
-    runtime = {
-      version = "Lua 5.3",
-      path = {
-        '?.lua',
-      }
-    }
-  }
+     Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
 }
 
 -- pip install pyright
