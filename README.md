@@ -22,3 +22,6 @@ There are some docs inside the lsp config files on how to get started
 
 ## Other Notes
 - Telescope plugin uses a specific tag for release
+
+## Tooling Notes
+- You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep

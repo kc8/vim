@@ -69,11 +69,27 @@ return require('packer').startup(function()
     use {'nvim-lua/plenary.nvim'}
 
     -- Adds some nice-to-haves to built in lsp 
-    use { "glepnir/lspsaga.nvim" }
+    use({
+        "glepnir/lspsaga.nvim",
+        config = function() 
+            require('lspsaga').setup({})
+        end,
+    })
 
     use { 'nvim-lua/plenary.nvim' }
     use { 'ThePrimeagen/harpoon' }
 
     use { 'ziglang/zig.vim' }
 
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = function()
+             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+             ts_update()
+         end,
+     }
+
+     use { 'nvim-treesitter/playground'}
+
+    use('nvim-tree/nvim-web-devicons')
 end)
