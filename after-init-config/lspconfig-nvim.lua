@@ -13,6 +13,11 @@ local function map(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local capabilities =
+require('cmp_nvim_lsp').default_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
+
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -189,7 +194,6 @@ require('lspconfig')['pyright'].setup {
   command = { "pyright", "--stdio" }
 }
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup {
   pattern = { "*.tf", "*.tfvars" },
@@ -254,10 +258,12 @@ cmp.setup({
 local metals_config = require("metals").bare_config()
 
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+metals_config.init_options.statusBarProvider = "on"
 
-metals_config.on_attach = on_attach;
+metals_config.on_attach = new_on_attach;
 metals_config.settings = {
   showImplicitArguments = true,
+  showInferredType = true,
   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
 }
 
