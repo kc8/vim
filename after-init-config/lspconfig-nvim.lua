@@ -20,12 +20,53 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
--- TODO I do not know if I want this to 'attach'
+-- TODO I want to move the on_attach away from map
+local new_on_attach = function(client, bufnr)
+  local keymap_opts = { buffer = bufnr }
+
+  vim.wo.signcolumn = "yes"
+  vim.opt.updatetime = 100
+  -- nvim should not do auto completing for us
+  vim.o.completeopt = "menuone,noinsert,noselect"
+  vim.opt.shortmess = vim.opt.shortmess + "c"
+
+  -- shortcuts
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
+  vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
+  vim.keymap.set("n", "gi", vim.lsp.buf.implementation, keymap_opts)
+  vim.keymap.set("n", "<c-k>", vim.lsp.buf.signature_help, keymap_opts)
+  vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, keymap_opts)
+  vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
+  vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol, keymap_opts)
+  vim.keymap.set("n", "gws", vim.lsp.buf.workspace_symbol, keymap_opts)
+  vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
+  vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, keymap_opts)
+  vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, keymap_opts)
+  vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, keymap_opts)
+  vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, keymap_opts)
+  -- vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
+  keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+
+  -- show diag when curosr hold
+  local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
+  vim.api.nvim_create_autocmd("CursorHold", {
+    callback = function()
+      vim.diagnostic.open_float(nil, { focusable = false })
+    end,
+    group = diag_float_grp,
+  })
+
+  -- icons
+  local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+  end
+end
 
 local on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
   vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -73,20 +114,20 @@ require('lspconfig')['tsserver'].setup {
   flags = lsp_flags,
 }
 -- Requires vscode-lanaguage-server installed and on path
-require('lspconfig')['eslint'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
+require('lspconfig')['eslint'].setup {
+  on_attach = on_attach,
+  flags = lsp_flags,
 }
 
 -- Requires vscode-lanaguage-server installed and on path
-require('lspconfig')['cssls'].setup{
-    on_attach = on_attach,
-    cmd = {"vscode-css-language-server", "--stdio"},
-    filetypes = {"css", "scss"},
-    root_dir = util.root_pattern("package.json", ".git"),
-    settings = {css = {validate=true}, scss={validate=true}},
-    -- single_file_support = true,
-    flags = lsp_flags,
+require('lspconfig')['cssls'].setup {
+  on_attach = on_attach,
+  cmd = { "vscode-css-language-server", "--stdio" },
+  filetypes = { "css", "scss" },
+  root_dir = util.root_pattern("package.json", ".git"),
+  settings = { css = { validate = true }, scss = { validate = true } },
+  -- single_file_support = true,
+  flags = lsp_flags,
 }
 
 require('lspconfig')['clangd'].setup {
@@ -116,17 +157,18 @@ require('lspconfig')['java_language_server'].setup {
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
-  cmd = {"lua-language-server"};
-  root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git");
+  cmd = { "lua-language-server" };
+  root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml"
+    , "selene.yml", ".git");
   settings = {
-     Lua = {
+    Lua = {
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = { 'vim' },
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
@@ -162,21 +204,19 @@ cmp.setup({
   sources = {
     { name = "nvim_lsp" },
     { name = "vsnip" },
+    { name = "path" },
+    { name = "buffer" },
   },
   snippet = {
+    preselect = cmp.PreselectMode.None,
     expand = function(args)
       -- Comes from vsnip
       vim.fn["vsnip#anonymous"](args.body)
     end,
   },
-  mapping = cmp.mapping.preset.insert({
+  nomapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
-    -- None of this made sense to me when first looking into this since there
-    -- is no vim docs, but you can't have select = true here _unless_ you are
-    -- also using the snippet stuff. So keep in mind that if you remove
-    -- snippets you need to remove this select
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
-    -- I use tabs... some say you should stick to ins-completion but this is just here as an example
     ["<Tab>"] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -192,6 +232,20 @@ cmp.setup({
       end
     end,
   }),
+  mapping = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+    ["<Tab>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    }),
+  },
 })
 
 -- METAL AND SCALA CONFIG
@@ -236,7 +290,7 @@ require('lspconfig')['yamlls'].setup {
   capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
   cmd = { "yaml-language-server", "--stdio" },
   root_dir = util.root_pattern(".git"),
-  filetypes = { "yaml", "yaml.docker-compose", "helm", "yml"},
+  filetypes = { "yaml", "yaml.docker-compose", "helm", "yml" },
   settings = {
     yaml = {
       redhat = { telemetry = { enabled = false } },
@@ -254,3 +308,31 @@ require('lspconfig')['yamlls'].setup {
 require('lspsaga').setup {
   -- on_attach = on_attach,
 }
+
+
+local rust_opts = {
+  root_dir = util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
+  tools = {
+    runnables = {
+      use_telescope = true,
+    },
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = false,
+      parameter_hints_prefix = "",
+      other_hints_prefix = "",
+    },
+  },
+  server = {
+    on_attach = new_on_attach,
+    settings = {
+      ["rust-analyzer"] = {
+        checkOnSave = {
+          command = "clippy",
+        },
+      },
+    },
+  },
+}
+
+require('rust-tools').setup(rust_opts)

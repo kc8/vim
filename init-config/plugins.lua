@@ -1,7 +1,7 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function()
-    -- Color scheme     
+    -- Color scheme
     use('morhetz/gruvbox')
 
     --Omnisharp is for C#
@@ -14,11 +14,11 @@ return require('packer').startup(function()
 
     -- use { 'neoclide/coc.nvim', branch ='release' }
 
-    use {'neovim/nvim-lspconfig'}
+    use { 'neovim/nvim-lspconfig' }
 
     use('editorconfig/editorconfig-vim')
 
-    --Git 
+    --Git
     use('tpope/vim-fugitive')
     --Git What branch am I in?
     use('vim-airline/vim-airline')
@@ -30,48 +30,48 @@ return require('packer').startup(function()
     use('sheerun/vim-polyglot')
 
     -- use('kc8/first_vim_plugin')
-    
+
     -- NOTE this uses a specific branch
-    -- To get ripgrep working, we need to install rg 
-    -- and add it to our path. Instructions are on their 
+    -- To get ripgrep working, we need to install rg
+    -- and add it to our path. Instructions are on their
     -- git repo
     use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.0',
-      requires = { 
-          {'nvim-lua/plenary.nvim'},
-          {'BurntSushi/ripgrep'}
-      }
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        requires = {
+            { 'nvim-lua/plenary.nvim' },
+            { 'BurntSushi/ripgrep' }
+        }
     }
 
-    -- Packer needs to know where it is to prevent it from removing 
+    -- Packer needs to know where it is to prevent it from removing
     -- itself...
     -- Source https://github.com/wbthomason/packer.nvim/issues/718
-    use {'wbthomason/packer.nvim'}
- 
+    use { 'wbthomason/packer.nvim' }
+
     -- auto completion, settings aree in lspconfig.nvim.lua
     use {
-            'hrsh7th/nvim-cmp',
-            requires = { 
-                { 'hrsh7th/cmp-nvim-lsp' },
-                { 'hrsh7th/cmp-vsnip' },
-                { 'hrsh7th/vim-vsnip' },
-            }
+        'hrsh7th/nvim-cmp',
+        requires = {
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-vsnip' },
+            { 'hrsh7th/vim-vsnip' },
         }
+    }
 
     use {
-            'scalameta/nvim-metals',
-            requires = { 
-                { 'nvim-lua/plenary.nvim' },
-                { 'mfussenegger/nvim-dap' },
-            }
+        'scalameta/nvim-metals',
+        requires = {
+            { 'nvim-lua/plenary.nvim' },
+            { 'mfussenegger/nvim-dap' },
         }
+    }
 
-    use {'nvim-lua/plenary.nvim'}
+    use { 'nvim-lua/plenary.nvim' }
 
-    -- Adds some nice-to-haves to built in lsp 
+    -- Adds some nice-to-haves to built in lsp
     use({
         "glepnir/lspsaga.nvim",
-        config = function() 
+        config = function()
             require('lspsaga').setup({})
         end,
     })
@@ -84,12 +84,21 @@ return require('packer').startup(function()
     use {
         'nvim-treesitter/nvim-treesitter',
         run = function()
-             local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-             ts_update()
-         end,
-     }
+            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+            ts_update()
+        end,
+    }
 
-     use { 'nvim-treesitter/playground'}
+    use { 'nvim-treesitter/playground' }
 
     use('nvim-tree/nvim-web-devicons')
+
+    use("simrat39/rust-tools.nvim")
+
+    use({
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup()
+        end
+    })
 end)
