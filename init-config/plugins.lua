@@ -3,6 +3,8 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function()
     -- Color scheme
     use('morhetz/gruvbox')
+    use('sainnhe/sonokai')
+    use('rose-pine/neovim')
 
     --Omnisharp is for C#
     use('OmniSharp/omnisharp-vim')
