@@ -95,4 +95,6 @@ return require('packer').startup(function()
     use({
         "j-hui/fidget.nvim",
     })
+
+    use({ "nvim-treesitter/nvim-treesitter-context" })
 end)
