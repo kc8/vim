@@ -8,14 +8,9 @@ return require('packer').startup(function()
     use('OmniSharp/omnisharp-vim')
     use('nickspoons/vim-sharpenup')
 
-    -- Fuzzy finder for recursive file searching
-    --use('junegunn/fzf') --NOTE this needs to be installed
-    --use('junegunn/fzf.vim')
-
-    -- use { 'neoclide/coc.nvim', branch ='release' }
-
     use { 'neovim/nvim-lspconfig' }
-
+    -- NOTE/TODO this is now built into nvim 0.9+
+    -- so... at somepoint we can remove
     use('editorconfig/editorconfig-vim')
 
     --Git
@@ -24,12 +19,13 @@ return require('packer').startup(function()
     use('vim-airline/vim-airline')
     -- git in the gutter!
     use('airblade/vim-gitgutter')
+    -- :GBrowse function
     use('tpope/vim-rhubarb')
 
     use('mbbill/undotree')
-    use('sheerun/vim-polyglot')
+    -- TODO/NOOTE replaced with treesiter/lsp. Need to see where I am not using this
+    -- use('sheerun/vim-polyglot')
 
-    -- use('kc8/first_vim_plugin')
 
     -- NOTE this uses a specific branch
     -- To get ripgrep working, we need to install rg
@@ -66,8 +62,6 @@ return require('packer').startup(function()
         }
     }
 
-    use { 'nvim-lua/plenary.nvim' }
-
     -- Adds some nice-to-haves to built in lsp
     use({
         "glepnir/lspsaga.nvim",
@@ -76,7 +70,9 @@ return require('packer').startup(function()
         end,
     })
 
+    -- plenary is a dep for other plugins
     use { 'nvim-lua/plenary.nvim' }
+
     use { 'ThePrimeagen/harpoon' }
 
     use { 'ziglang/zig.vim' }
@@ -95,10 +91,8 @@ return require('packer').startup(function()
 
     use("simrat39/rust-tools.nvim")
 
+    -- rust loading indicator
     use({
         "j-hui/fidget.nvim",
-        config = function()
-            require("fidget").setup()
-        end
     })
 end)

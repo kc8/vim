@@ -1,10 +1,9 @@
 local keymapper = require("vim.init-config.keymapper")
 local keymap = vim.keymap.set
-local nnoremap = keymapper.nnoremap
 local api = vim.api
-local cmd = vim.cmd
 
 local util = require 'lspconfig.util'
+
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then
@@ -18,15 +17,7 @@ require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- TODO I want to move the on_attach away from map
-local new_on_attach = function(client, bufnr)
+local on_attach = function(client, bufnr)
   local keymap_opts = { buffer = bufnr }
 
   vim.wo.signcolumn = "yes"
@@ -43,6 +34,7 @@ local new_on_attach = function(client, bufnr)
   vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, keymap_opts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
   vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol, keymap_opts)
+  -- query a symbol (like function name or struct name) and lsp *should* return location
   vim.keymap.set("n", "gws", vim.lsp.buf.workspace_symbol, keymap_opts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
   vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, keymap_opts)
@@ -52,7 +44,14 @@ local new_on_attach = function(client, bufnr)
   -- vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
   keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
-  -- show diag when curosr hold
+  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+  local opts = { noremap = true, silent = true }
+  vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
+  -- show diag when curosr hold (NOTEn: this can be somewhat bothersome sometimes)
   local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
   vim.api.nvim_create_autocmd("CursorHold", {
     callback = function()
@@ -61,15 +60,14 @@ local new_on_attach = function(client, bufnr)
     group = diag_float_grp,
   })
 
-  -- icons
-  local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
+  local signs = { Error = "●", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
   end
 end
 
-local on_attach = function(client, bufnr)
+local old_on_attach = function(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
   vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
@@ -116,12 +114,10 @@ end
 -- requires the tsserver installed and on path
 require('lspconfig')['tsserver'].setup {
   on_attach = on_attach,
-  flags = lsp_flags,
 }
 -- Requires vscode-lanaguage-server installed and on path
 require('lspconfig')['eslint'].setup {
   on_attach = on_attach,
-  flags = lsp_flags,
 }
 
 -- Requires vscode-lanaguage-server installed and on path
@@ -131,13 +127,10 @@ require('lspconfig')['cssls'].setup {
   filetypes = { "css", "scss" },
   root_dir = util.root_pattern("package.json", ".git"),
   settings = { css = { validate = true }, scss = { validate = true } },
-  -- single_file_support = true,
-  flags = lsp_flags,
 }
 
 require('lspconfig')['clangd'].setup {
   on_attach = on_attach,
-  flags = lsp_flags,
 }
 
 -- https://github.com/golang/tools/tree/master/gopls
@@ -155,7 +148,6 @@ require('lspconfig')['gopls'].setup {
 -- then the command to the starting teh server is here
 require('lspconfig')['java_language_server'].setup {
   on_attach = on_attach,
-  flags = lsp_flags,
   cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
 }
 
@@ -190,7 +182,6 @@ require('lspconfig')['lua_ls'].setup {
 -- pip install pyright
 require('lspconfig')['pyright'].setup {
   on_attach = on_attach,
-  flags = lsp_flags,
   command = { "pyright", "--stdio" }
 }
 
@@ -260,7 +251,7 @@ local metals_config = require("metals").bare_config()
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 metals_config.init_options.statusBarProvider = "on"
 
-metals_config.on_attach = new_on_attach;
+metals_config.on_attach = on_attach;
 metals_config.settings = {
   showImplicitArguments = true,
   showInferredType = true,
@@ -309,10 +300,8 @@ require('lspconfig')['yamlls'].setup {
   }
 }
 
--- NOTE: lsp saga has had its settings change the format below is correct
--- see the plugins file for how we pass the lspconfig setup function
 require('lspsaga').setup {
-  -- on_attach = on_attach,
+  on_attach = on_attach,
 }
 
 
@@ -330,7 +319,7 @@ local rust_opts = {
     },
   },
   server = {
-    on_attach = new_on_attach,
+    on_attach = on_attach,
     settings = {
       ["rust-analyzer"] = {
         checkOnSave = {
@@ -340,5 +329,6 @@ local rust_opts = {
     },
   },
 }
-
 require('rust-tools').setup(rust_opts)
+
+require('fidget').setup{}
