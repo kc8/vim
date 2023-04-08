@@ -155,7 +155,8 @@ require('lspconfig')['java_language_server'].setup {
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
   cmd = { "lua-language-server" };
-  root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml"
+  root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml",
+    "stylua.toml", "selene.toml"
     , "selene.yml", ".git");
   settings = {
     Lua = {
@@ -294,7 +295,6 @@ require('lspconfig')['yamlls'].setup {
       schemas = {
         ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
         ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
-
       },
     },
   }
@@ -331,4 +331,4 @@ local rust_opts = {
 }
 require('rust-tools').setup(rust_opts)
 
-require('fidget').setup{}
+require('fidget').setup {}

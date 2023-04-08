@@ -1,5 +1,5 @@
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = {"javascript", "python", "c", "lua", "scala", "bash", "java", "cpp", "markdown"},
+require 'nvim-treesitter.configs'.setup {
+  ensure_installed = { "javascript", "python", "c", "lua", "scala", "bash", "java", "cpp", "markdown" },
   sync_install = false,
   -- NOTE: there is some kind of bug that is causing crashing in the current version of treesitter
   -- when loading in all these parsers
@@ -13,4 +13,3 @@ require'nvim-treesitter.configs'.setup {
 
 require 'nvim-treesitter.install'.prefer_git = false
 require 'nvim-treesitter.install'.compilers = { "clang", "gcc" }
-

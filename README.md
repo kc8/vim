@@ -1,5 +1,7 @@
 # NVim Config Files 
 
+Current supported version of nVim is: 0.09
+
 ## Initial Setup (working on Linux/Unix)
 
 1. Create an init.lua (or init.vim) insider of the config directory (~/.config/nvim/[xxxx]) for your VIM setup
@@ -25,3 +27,4 @@ There are some docs inside the lsp config files on how to get started
 
 ## Tooling Notes
 - You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep
+- If you have a GHE you can set an env var `GHE_URL` to allow `:GBrowse` to correctly work
