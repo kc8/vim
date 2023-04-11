@@ -65,8 +65,17 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- find and replace in document, gets current word cursor is under
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
-local yankgroup = autogroup('highlightOnYank', {})
+-- TODO finish this at somepoint
+local currentCursorLine = function()
+    local r, _ = vim.api.nvim_win_get_cursor(0)
+    return "<cmd>" ..r[1].. "GBrowse<CR>"
+end
 
+vim.keymap.set("n", "<leader>gt", currentCursorLine)
+vim.keymap.set("n", "<leader>gb", "<cmd>GBrowse<CR>")
+vim.keymap.set("n", "<leader>gl", "<cmd>Git blame<CR>")
+
+local yankgroup = autogroup('highlightOnYank', {})
 autocmd('TextYankPost', {
     group = yankgroup,
     pattern = '*',

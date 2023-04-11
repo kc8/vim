@@ -1,6 +1,6 @@
 local getOSSettings = {}
 
-    -- TODO there is a bug in the windows result
+-- TODO there is a bug in the windows result
 local function getVimConfigDir()
     local home = os.getenv("HOME")
     local unixResult = "~/.config/nvim/lua/vim/"
