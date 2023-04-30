@@ -12,10 +12,15 @@ local function map(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-local capabilities =
-require('cmp_nvim_lsp').default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local get_capabilities = function()
+  local result =
+  require('cmp_nvim_lsp').default_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
+  return result
+end
+
+local capabilities = get_capabilities()
 
 local on_attach = function(client, bufnr)
   local keymap_opts = { buffer = bufnr }
@@ -186,7 +191,7 @@ require('lspconfig')['pyright'].setup {
   command = { "pyright", "--stdio" }
 }
 
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+get_capabilities().textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup {
   pattern = { "*.tf", "*.tfvars" },
   callback = vim.lsp.buf.formatting_sync,
@@ -253,28 +258,28 @@ metals_config.tvp = {
     enabled = true,
   }
 }
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+--metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+metals_config.capabilities = capabilities
 metals_config.init_options.statusBarProvider = "on"
-
 
 metals_config.on_attach = function(client, bufnr)
   on_attach(client, bufnr)
   vim.keymap.set("n", "<leader>tt", require("metals.tvp").toggle_tree_view)
-      api.nvim_create_autocmd("CursorHold", {
-      callback = vim.lsp.buf.document_highlight,
-      buffer = bufnr,
-      group = lsp_group,
-    })
-    api.nvim_create_autocmd("CursorMoved", {
-      callback = vim.lsp.buf.clear_references,
-      buffer = bufnr,
-      group = lsp_group,
-    })
-    api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-      callback = vim.lsp.codelens.refresh,
-      buffer = bufnr,
-      group = lsp_group,
-    })
+  api.nvim_create_autocmd("CursorHold", {
+    callback = vim.lsp.buf.document_highlight,
+    buffer = bufnr,
+    group = lsp_group,
+  })
+  api.nvim_create_autocmd("CursorMoved", {
+    callback = vim.lsp.buf.clear_references,
+    buffer = bufnr,
+    group = lsp_group,
+  })
+  api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    callback = vim.lsp.codelens.refresh,
+    buffer = bufnr,
+    group = lsp_group,
+  })
 end
 
 a = util.root_pattern(".git")
