@@ -248,15 +248,44 @@ cmp.setup({
 -- Taken from https://github.com/scalameta/nvim-metals/discussions/39
 -- see plugin lua file for details on this
 local metals_config = require("metals").bare_config()
-
+metals_config.tvp = {
+  icons = {
+    enabled = true,
+  }
+}
 metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
 metals_config.init_options.statusBarProvider = "on"
 
-metals_config.on_attach = on_attach;
+
+metals_config.on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  vim.keymap.set("n", "<leader>tt", require("metals.tvp").toggle_tree_view)
+      api.nvim_create_autocmd("CursorHold", {
+      callback = vim.lsp.buf.document_highlight,
+      buffer = bufnr,
+      group = lsp_group,
+    })
+    api.nvim_create_autocmd("CursorMoved", {
+      callback = vim.lsp.buf.clear_references,
+      buffer = bufnr,
+      group = lsp_group,
+    })
+    api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+      callback = vim.lsp.codelens.refresh,
+      buffer = bufnr,
+      group = lsp_group,
+    })
+end
+
+a = util.root_pattern(".git")
+
 metals_config.settings = {
   showImplicitArguments = true,
   showInferredType = true,
+  showImplicitConversionsAndClasses = true,
+  serverVersion = "latest.snapshot",
   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  --scalafixConfigPath = util.root_pattern(".git")
 }
 
 local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })

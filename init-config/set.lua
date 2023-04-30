@@ -75,6 +75,8 @@ vim.keymap.set("n", "<leader>gt", currentCursorLine)
 vim.keymap.set("n", "<leader>gb", "<cmd>GBrowse<CR>")
 vim.keymap.set("n", "<leader>gl", "<cmd>Git blame<CR>")
 
+vim.keymap.set("n", "<leader>fo", ":copen<CR>")
+
 local yankgroup = autogroup('highlightOnYank', {})
 autocmd('TextYankPost', {
     group = yankgroup,
