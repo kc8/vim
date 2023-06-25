@@ -99,4 +99,6 @@ return require('packer').startup(function()
     })
 
     use({ "nvim-treesitter/nvim-treesitter-context" })
+
+    use({'mfussenegger/nvim-jdtls'})
 end)

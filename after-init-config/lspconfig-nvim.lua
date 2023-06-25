@@ -155,7 +155,11 @@ require('lspconfig')['java_language_server'].setup {
   on_attach = on_attach,
   cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
 }
-
+--local java_jdtls_config = {
+ -- cmd = {'/path/to/jdt-language-server/bin/jdtls'},
+  -- root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+--}
+-- require('jdtls').start_or_attach(java_jdtls_config)
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
@@ -366,3 +370,5 @@ local rust_opts = {
 require('rust-tools').setup(rust_opts)
 
 require('fidget').setup {}
+
+require'lspconfig'.bashls.setup{}
