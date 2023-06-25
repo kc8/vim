@@ -12,10 +12,15 @@ local function map(mode, lhs, rhs, opts)
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-local capabilities =
-require('cmp_nvim_lsp').default_capabilities(
-  vim.lsp.protocol.make_client_capabilities()
-)
+local get_capabilities = function()
+  local result =
+  require('cmp_nvim_lsp').default_capabilities(
+    vim.lsp.protocol.make_client_capabilities()
+  )
+  return result
+end
+
+local capabilities = get_capabilities()
 
 local on_attach = function(client, bufnr)
   local keymap_opts = { buffer = bufnr }
@@ -150,7 +155,11 @@ require('lspconfig')['java_language_server'].setup {
   on_attach = on_attach,
   cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
 }
-
+--local java_jdtls_config = {
+ -- cmd = {'/path/to/jdt-language-server/bin/jdtls'},
+  -- root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+--}
+-- require('jdtls').start_or_attach(java_jdtls_config)
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
@@ -186,7 +195,7 @@ require('lspconfig')['pyright'].setup {
   command = { "pyright", "--stdio" }
 }
 
-capabilities.textDocument.completion.completionItem.snippetSupport = true
+get_capabilities().textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup {
   pattern = { "*.tf", "*.tfvars" },
   callback = vim.lsp.buf.formatting_sync,
@@ -248,15 +257,44 @@ cmp.setup({
 -- Taken from https://github.com/scalameta/nvim-metals/discussions/39
 -- see plugin lua file for details on this
 local metals_config = require("metals").bare_config()
-
-metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+metals_config.tvp = {
+  icons = {
+    enabled = true,
+  }
+}
+--metals_config.capabilities = require("cmp_nvim_lsp").default_capabilities()
+metals_config.capabilities = capabilities
 metals_config.init_options.statusBarProvider = "on"
 
-metals_config.on_attach = on_attach;
+metals_config.on_attach = function(client, bufnr)
+  on_attach(client, bufnr)
+  vim.keymap.set("n", "<leader>tt", require("metals.tvp").toggle_tree_view)
+  api.nvim_create_autocmd("CursorHold", {
+    callback = vim.lsp.buf.document_highlight,
+    buffer = bufnr,
+    group = lsp_group,
+  })
+  api.nvim_create_autocmd("CursorMoved", {
+    callback = vim.lsp.buf.clear_references,
+    buffer = bufnr,
+    group = lsp_group,
+  })
+  api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
+    callback = vim.lsp.codelens.refresh,
+    buffer = bufnr,
+    group = lsp_group,
+  })
+end
+
+a = util.root_pattern(".git")
+
 metals_config.settings = {
   showImplicitArguments = true,
   showInferredType = true,
+  showImplicitConversionsAndClasses = true,
+  serverVersion = "latest.snapshot",
   excludedPackages = { "akka.actor.typed.javadsl", "com.github.swagger.akka.javadsl" },
+  --scalafixConfigPath = util.root_pattern(".git")
 }
 
 local nvim_metals_group = api.nvim_create_augroup("nvim-metals", { clear = true })
@@ -332,3 +370,5 @@ local rust_opts = {
 require('rust-tools').setup(rust_opts)
 
 require('fidget').setup {}
+
+require'lspconfig'.bashls.setup{}
