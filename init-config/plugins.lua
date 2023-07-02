@@ -97,4 +97,5 @@ return require('packer').startup(function()
      "j-hui/fidget.nvim",
     })
 
+    use({'mfussenegger/nvim-jdtls'})
 end)

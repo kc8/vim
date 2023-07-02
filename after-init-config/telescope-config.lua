@@ -28,6 +28,8 @@ nnoremap("<Leader>lg", function()
   require('telescope.builtin').live_grep({ hidden = true })
 end)
 
+vim.keymap.set("n", "<leader>mc",require('telescope').extensions.metals.commands)
+
 telescope.setup({
   defaults = {
     mappings = {

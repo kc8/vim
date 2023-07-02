@@ -1,5 +1,5 @@
 require 'nvim-treesitter.configs'.setup {
-  ensure_installed = { "javascript", "python", "c", "lua", "scala", "bash", "java", "cpp", "markdown" },
+  ensure_installed = { "javascript", "python", "c", "lua", "scala", "bash", "java", "cpp", "markdown", "hcl"},
   sync_install = false,
   -- NOTE: there is some kind of bug that is causing crashing in the current version of treesitter
   -- when loading in all these parsers
