@@ -79,24 +79,22 @@ return require('packer').startup(function()
 
     use { 'ziglang/zig.vim' }
 
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-            ts_update()
-        end,
-    }
-
-    use { 'nvim-treesitter/playground' }
-
-    use('nvim-tree/nvim-web-devicons')
-
+    -- Avoid treesitter on windows because of bugs =(
+    if vim.fn.has('win32unix') == false then
+        use {
+            'nvim-treesitter/nvim-treesitter',
+            run = function()
+                local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+                ts_update()
+            end,
+        }
+        use { 'nvim-treesitter/playground' }
+        use({ "nvim-treesitter/nvim-treesitter-context" })
+    end
     use("simrat39/rust-tools.nvim")
 
-    -- rust loading indicator
     use({
-        "j-hui/fidget.nvim",
+     "j-hui/fidget.nvim",
     })
 
-    use({ "nvim-treesitter/nvim-treesitter-context" })
 end)

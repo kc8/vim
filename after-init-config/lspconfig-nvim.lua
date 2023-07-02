@@ -19,6 +19,10 @@ require('cmp_nvim_lsp').default_capabilities(
 
 local on_attach = function(client, bufnr)
   local keymap_opts = { buffer = bufnr }
+  -- Using this on windows instead due to weird treesitter functionality
+  if vim.fn.has('win32unix') == false then
+    client.server_capabilities.semanticTokensProvider = nil;
+  end
 
   vim.wo.signcolumn = "yes"
   vim.opt.updatetime = 100
