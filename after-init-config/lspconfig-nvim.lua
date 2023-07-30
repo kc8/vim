@@ -72,50 +72,6 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local old_on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
-  map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
-  map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
-  map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
-  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
-  -- code action was moved to lspgaga
-  -- map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
-
-  map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]])
-  map("n", "<leader>ae", [[<cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]])
-  map("n", "<leader>aw", [[<cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]])
-  map("n", "<leader>d", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-
-  map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
-  map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
-  -- lspsaga specific
-  keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
-  -- Display defs and references for the given highlighted item
-  -- keymap("n", "<leader>s", "<cmd>Lspsaga lsp_finder<CR>")
-  -- rename occurences of word for entire file
-  -- keymap("n", "<leader>r", "<cmd>Lspsaga rename<CR>")
-  -- Peeks def, display editable popup with implementation of func dec
-  -- keymap("n", "<leader>d", "<cmd>Lspsaga peek_definition<CR>")
-  -- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
-  local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-end
-
 -- requires the tsserver installed and on path
 require('lspconfig')['tsserver'].setup {
   on_attach = on_attach,
