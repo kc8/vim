@@ -7,8 +7,8 @@ return require('packer').startup(function()
     use('rose-pine/neovim')
 
     --Omnisharp is for C#
-    use('OmniSharp/omnisharp-vim')
-    use('nickspoons/vim-sharpenup')
+    --use('OmniSharp/omnisharp-vim')
+    --use('nickspoons/vim-sharpenup')
 
     use { 'neovim/nvim-lspconfig' }
     -- NOTE/TODO this is now built into nvim 0.9+
@@ -25,16 +25,15 @@ return require('packer').startup(function()
     use('tpope/vim-rhubarb')
 
     use('mbbill/undotree')
-    -- TODO/NOOTE replaced with treesiter/lsp. Need to see where I am not using this
+    -- TODO/NOTE replaced with treesiter/lsp. Need to see where I am not using this
     -- use('sheerun/vim-polyglot')
-
 
     -- NOTE this uses a specific branch
     -- To get ripgrep working, we need to install rg
     -- and add it to our path. Instructions are on their
     -- git repo
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = {
             { 'nvim-lua/plenary.nvim' },
             { 'BurntSushi/ripgrep' }
@@ -56,6 +55,7 @@ return require('packer').startup(function()
         }
     }
 
+    -- Scala lsp
     use {
         'scalameta/nvim-metals',
         requires = {
@@ -89,7 +89,7 @@ return require('packer').startup(function()
 
     use { 'nvim-treesitter/playground' }
 
-    use('nvim-tree/nvim-web-devicons')
+    -- use('nvim-tree/nvim-web-devicons')
 
     use("simrat39/rust-tools.nvim")
 
