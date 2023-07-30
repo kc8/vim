@@ -11,8 +11,7 @@
 
 ## tmux config setup
 1. I decided to hard link the conf here to the my home dir ```ln $(echo $TMUX_CONFIG) ~/.tmux.conf``` 
-while the TMUX_CONFIG is an exported var to this [here]/.tmux.conf
-    - There are also other places tmux reads/checks for the config
+    1. Also the default is within the home dir, so this should also work ```ln ./.tmux.conf ~/.tmux.config``` 
 
 ## zsh specific commands
 - [Bind Key Notiation](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/bindkey.md)
@@ -26,7 +25,7 @@ You will need to set some env vars for dirs you want to search for
 ```
 export PROJECT_DIR="$HOME/projects"
 export NOTES_DIR="$HOME/notes/DAILIES/"
-export CONFIG_DIR="$HOME/.config/nvim/lua/vim"
+export CONFIG_DIR="$HOME/.config/nvim/lua/"
 ```
 
 ## tmux cheat sheet

@@ -13,18 +13,28 @@ Current supported version of nVim is: 0.09
 ## Using LUA
 Inside the config path for VIM you will need to create something c 'lua', for example lua/vim. VIM will look inside the lua for namespaces. So your init.lua file will look like 
 
+Add the folloing to your init.lua file you created earlier
 ```sh 
 require("vim")
 ```
 which will tell vim to look inside the lua directory and then look for the vim (or this repo)
 
-## LSPs 
+##  First Start
+Because Packer has some auto install config you may need to restart once or twice, eventuall 
+you should be able to run `:PackerInstall` to get all plugins
+
+## Installing Tooling
+- run `:checkahealth` and install needed deps
+- install: `npm`/`node`
+- install: python 
+- install: pip -> then pynvim can be installed if needed
+
+- You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep
+
+### LSPs 
 These need to be installed seperatley and added to paths so that nvim lsp can initalize them when opening their respetive files
 There are some docs inside the lsp config files on how to get started
+- You may need to add these to your path
 
-## Other Notes
-- Telescope plugin uses a specific tag for release
-
-## Tooling Notes
-- You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep
+## Additonal Config 
 - If you have a GHE you can set an env var `GHE_URL` to allow `:GBrowse` to correctly work
