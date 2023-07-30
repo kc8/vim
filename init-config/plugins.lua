@@ -96,6 +96,7 @@ return require('packer').startup(function()
     -- rust loading indicator
     use({
         "j-hui/fidget.nvim",
+        tag = 'legacy',
     })
 
     use({ "nvim-treesitter/nvim-treesitter-context" })
