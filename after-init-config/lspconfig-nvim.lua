@@ -273,6 +273,13 @@ require('lspconfig')['zls'].setup {
   }
 }
 
+require('lspconfig')['tflint'].setup {
+  on_attach = on_attach,
+  filetypes = {"terraform"},
+  cmd = { "tflint", "--langserver" },
+  root_dir = util.root_pattern(".terraform", ".git", ".tflint.hcl")
+}
+
 require('lspconfig')['pylsp'].setup {
   on_attach = on_attach,
 }
