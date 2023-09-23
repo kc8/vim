@@ -20,8 +20,7 @@ nnoremap("<Leader>9", function()
   require('harpoon.ui').nav_prev()
 end)
 
-nnoremap("<Leader>m", function()
-  require('harpoon.mark').add_file()
+nnoremap("<Leader>m", function() require('harpoon.mark').add_file()
 end)
 
 

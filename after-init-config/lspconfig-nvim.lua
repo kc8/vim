@@ -1,16 +1,6 @@
-local keymapper = require("vim.init-config.keymapper")
 local keymap = vim.keymap.set
 local api = vim.api
-
 local util = require 'lspconfig.util'
-
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  api.nvim_set_keymap(mode, lhs, rhs, options)
-end
 
 local get_capabilities = function()
   local result =
@@ -21,12 +11,13 @@ local get_capabilities = function()
 end
 
 local capabilities = get_capabilities()
+-- vim.lsp.set_log_level('off')
 
 local on_attach = function(client, bufnr)
   local keymap_opts = { buffer = bufnr }
 
   vim.wo.signcolumn = "yes"
-  vim.opt.updatetime = 100
+  --vim.opt.updatetime = 100
   -- nvim should not do auto completing for us
   vim.o.completeopt = "menuone,noinsert,noselect"
   vim.opt.shortmess = vim.opt.shortmess + "c"
@@ -46,8 +37,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, keymap_opts)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, keymap_opts)
   vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, keymap_opts)
-  -- vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
-  keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, keymap_opts)
+  --keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = { noremap = true, silent = true }
@@ -56,7 +47,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-  -- show diag when curosr hold (NOTEn: this can be somewhat bothersome sometimes)
+  -- show diag when curosr hold
   local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
   vim.api.nvim_create_autocmd("CursorHold", {
     callback = function()
@@ -151,7 +142,7 @@ require('lspconfig')['pyright'].setup {
   command = { "pyright", "--stdio" }
 }
 
-get_capabilities().textDocument.completion.completionItem.snippetSupport = true
+-- get_capabilities().textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup {
   pattern = { "*.tf", "*.tfvars" },
   callback = vim.lsp.buf.formatting_sync,
@@ -242,8 +233,6 @@ metals_config.on_attach = function(client, bufnr)
   })
 end
 
-a = util.root_pattern(".git")
-
 metals_config.settings = {
   showImplicitArguments = true,
   showInferredType = true,
@@ -301,10 +290,10 @@ require('lspconfig')['yamlls'].setup {
   }
 }
 
-require('lspsaga').setup {
-  on_attach = on_attach,
-}
-
+-- NOTE neede to remove this due to maybe (?) performance issue
+--require('lspsaga').setup {
+ -- on_attach = on_attach,
+--}
 
 local rust_opts = {
   root_dir = util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
