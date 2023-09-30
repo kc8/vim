@@ -1,32 +1,22 @@
-local keymapper = require("vim.init-config.keymapper")
-local keymap = vim.keymap.set
 local api = vim.api
-
 local util = require 'lspconfig.util'
-
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  api.nvim_set_keymap(mode, lhs, rhs, options)
-end
 
 local get_capabilities = function()
   local result =
-  require('cmp_nvim_lsp').default_capabilities(
-    vim.lsp.protocol.make_client_capabilities()
-  )
+      require('cmp_nvim_lsp').default_capabilities(
+        vim.lsp.protocol.make_client_capabilities()
+      )
   return result
 end
 
 local capabilities = get_capabilities()
+-- vim.lsp.set_log_level('off')
 
-local on_attach = function(client, bufnr)
+local on_attach = function(_, bufnr)
   local keymap_opts = { buffer = bufnr }
 
   vim.wo.signcolumn = "yes"
-  vim.opt.updatetime = 100
+  --vim.opt.updatetime = 100
   -- nvim should not do auto completing for us
   vim.o.completeopt = "menuone,noinsert,noselect"
   vim.opt.shortmess = vim.opt.shortmess + "c"
@@ -46,8 +36,8 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "<leader>sh", vim.lsp.buf.signature_help, keymap_opts)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, keymap_opts)
   vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, keymap_opts)
-  -- vim.keymap.set("n", "ga", vim.lsp.buf.code_action, keymap_opts)
-  keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
+  vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, keymap_opts)
+  --keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
 
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   local opts = { noremap = true, silent = true }
@@ -56,7 +46,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-  -- show diag when curosr hold (NOTEn: this can be somewhat bothersome sometimes)
+  -- show diag when curosr hold
   local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
   vim.api.nvim_create_autocmd("CursorHold", {
     callback = function()
@@ -66,50 +56,6 @@ local on_attach = function(client, bufnr)
   })
 
   local signs = { Error = "●", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
-end
-
-local old_on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-  vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
-  map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-  map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>")
-  map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>")
-  map("n", "gds", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
-  map("n", "gws", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
-  map("n", "<leader>cl", [[<cmd>lua vim.lsp.codelens.run()<CR>]])
-  map("n", "<leader>sh", [[<cmd>lua vim.lsp.buf.signature_help()<CR>]])
-  map("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>")
-  map("n", "<leader>f", "<cmd>lua vim.lsp.buf.format()<CR>")
-  -- code action was moved to lspgaga
-  -- map("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-  map("n", "<leader>ws", '<cmd>lua require"metals".hover_worksheet()<CR>')
-
-  map("n", "<leader>aa", [[<cmd>lua vim.diagnostic.setqflist()<CR>]])
-  map("n", "<leader>ae", [[<cmd>lua vim.diagnostic.setqflist({severity = "E"})<CR>]])
-  map("n", "<leader>aw", [[<cmd>lua vim.diagnostic.setqflist({severity = "W"})<CR>]])
-  map("n", "<leader>d", "<cmd>lua vim.diagnostic.setloclist()<CR>")
-
-  map("n", "[c", "<cmd>lua vim.diagnostic.goto_prev { wrap = false }<CR>")
-  map("n", "]c", "<cmd>lua vim.diagnostic.goto_next { wrap = false }<CR>")
-  -- lspsaga specific
-  keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>")
-  -- Display defs and references for the given highlighted item
-  -- keymap("n", "<leader>s", "<cmd>Lspsaga lsp_finder<CR>")
-  -- rename occurences of word for entire file
-  -- keymap("n", "<leader>r", "<cmd>Lspsaga rename<CR>")
-  -- Peeks def, display editable popup with implementation of func dec
-  -- keymap("n", "<leader>d", "<cmd>Lspsaga peek_definition<CR>")
-  -- keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
-
-  local signs = { Error = "⬤", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
   for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -156,17 +102,17 @@ require('lspconfig')['java_language_server'].setup {
   cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
 }
 --local java_jdtls_config = {
- -- cmd = {'/path/to/jdt-language-server/bin/jdtls'},
-  -- root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+-- cmd = {'/path/to/jdt-language-server/bin/jdtls'},
+-- root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
 --}
 -- require('jdtls').start_or_attach(java_jdtls_config)
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
-  cmd = { "lua-language-server" };
+  cmd = { "lua-language-server" },
   root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml",
     "stylua.toml", "selene.toml"
-    , "selene.yml", ".git");
+    , "selene.yml", ".git"),
   settings = {
     Lua = {
       runtime = {
@@ -195,7 +141,7 @@ require('lspconfig')['pyright'].setup {
   command = { "pyright", "--stdio" }
 }
 
-get_capabilities().textDocument.completion.completionItem.snippetSupport = true
+-- get_capabilities().textDocument.completion.completionItem.snippetSupport = true
 require('lspconfig')['terraformls'].setup {
   pattern = { "*.tf", "*.tfvars" },
   callback = vim.lsp.buf.formatting_sync,
@@ -272,21 +218,16 @@ metals_config.on_attach = function(client, bufnr)
   api.nvim_create_autocmd("CursorHold", {
     callback = vim.lsp.buf.document_highlight,
     buffer = bufnr,
-    group = lsp_group,
   })
   api.nvim_create_autocmd("CursorMoved", {
     callback = vim.lsp.buf.clear_references,
     buffer = bufnr,
-    group = lsp_group,
   })
   api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
     callback = vim.lsp.codelens.refresh,
     buffer = bufnr,
-    group = lsp_group,
   })
 end
-
-a = util.root_pattern(".git")
 
 metals_config.settings = {
   showImplicitArguments = true,
@@ -308,22 +249,34 @@ api.nvim_create_autocmd("FileType", {
 
 require('lspconfig')['zls'].setup {
   on_attach = on_attach,
-  root_dir = util.root_pattern("build.zig", ".git");
+  root_dir = util.root_pattern("build.zig", ".git"),
   docs = {
-    description = [[]];
+    description = [[]],
     default_config = {
-      root_dir = [[root_pattern("build.zig", ".git")]];
+      root_dir = [[root_pattern("build.zig", ".git")]],
     }
   }
+}
+
+require('lspconfig')['tflint'].setup {
+  on_attach = on_attach,
+  filetypes = { "terraform" },
+  cmd = { "tflint", "--langserver" },
+  root_dir = util.root_pattern(".terraform", ".git", ".tflint.hcl")
 }
 
 require('lspconfig')['pylsp'].setup {
   on_attach = on_attach,
 }
 
+local kub_ys =
+"https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"
+
+local gha_yaml_schema = "https://json.schemastore.org/github-workflow.json"
 require('lspconfig')['yamlls'].setup {
   on_attach = on_attach,
-  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+  capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol
+  .make_client_capabilities()),
   cmd = { "yaml-language-server", "--stdio" },
   root_dir = util.root_pattern(".git"),
   filetypes = { "yaml", "yaml.docker-compose", "helm", "yml" },
@@ -331,17 +284,17 @@ require('lspconfig')['yamlls'].setup {
     yaml = {
       redhat = { telemetry = { enabled = false } },
       schemas = {
-        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-        ["https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.18.0-standalone-strict/all.json"] = "/*.k8s.yaml",
+        [gha_yaml_schema] = "/.github/workflows/*",
+        [kub_ys] = "/*.k8s.yaml",
       },
     },
   }
 }
 
-require('lspsaga').setup {
-  on_attach = on_attach,
-}
-
+-- NOTE neede to remove this due to maybe (?) performance issue
+--require('lspsaga').setup {
+-- on_attach = on_attach,
+--}
 
 local rust_opts = {
   root_dir = util.root_pattern("Cargo.toml", "rust-project.json", ".git"),
@@ -371,4 +324,4 @@ require('rust-tools').setup(rust_opts)
 
 require('fidget').setup {}
 
-require'lspconfig'.bashls.setup{}
+require 'lspconfig'.bashls.setup {}

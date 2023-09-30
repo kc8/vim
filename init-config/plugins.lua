@@ -1,14 +1,25 @@
 vim.cmd [[packadd packer.nvim]]
 
+-- The following is for a custom plugin and WIP
+--local keymapper = require("vim.init-config.keymapper")
+--local nnoremap = keymapper.nnoremap
+--nnoremap("<Leader>r", function()
+--require('sql-nvim.sql-nvim').toggle_menu()
+--end)
+--nnoremap("<Leader>t", function()
+--require('sql-nvim.sql-nvim').run_sql_statement()
+--end)
+
 return require('packer').startup(function()
     -- Color scheme
+    -- luacheck: push ignore use
     use('morhetz/gruvbox')
     use('sainnhe/sonokai')
     use('rose-pine/neovim')
 
     --Omnisharp is for C#
-    use('OmniSharp/omnisharp-vim')
-    use('nickspoons/vim-sharpenup')
+    --use('OmniSharp/omnisharp-vim')
+    --use('nickspoons/vim-sharpenup')
 
     use { 'neovim/nvim-lspconfig' }
     -- NOTE/TODO this is now built into nvim 0.9+
@@ -25,16 +36,15 @@ return require('packer').startup(function()
     use('tpope/vim-rhubarb')
 
     use('mbbill/undotree')
-    -- TODO/NOOTE replaced with treesiter/lsp. Need to see where I am not using this
+    -- TODO/NOTE replaced with treesiter/lsp. Need to see where I am not using this
     -- use('sheerun/vim-polyglot')
-
 
     -- NOTE this uses a specific branch
     -- To get ripgrep working, we need to install rg
     -- and add it to our path. Instructions are on their
     -- git repo
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = {
             { 'nvim-lua/plenary.nvim' },
             { 'BurntSushi/ripgrep' }
@@ -56,6 +66,7 @@ return require('packer').startup(function()
         }
     }
 
+    -- Scala lsp
     use {
         'scalameta/nvim-metals',
         requires = {
@@ -63,14 +74,14 @@ return require('packer').startup(function()
             { 'mfussenegger/nvim-dap' },
         }
     }
-
     -- Adds some nice-to-haves to built in lsp
-    use({
-        "glepnir/lspsaga.nvim",
-        config = function()
-            require('lspsaga').setup({})
-        end,
-    })
+    -- NOTE: there might be a performance issue in here
+    --use({
+    --"glepnir/lspsaga.nvim",
+    --config = function()
+    --require('lspsaga').setup({})
+    --end,
+    --})
 
     -- plenary is a dep for other plugins
     use { 'nvim-lua/plenary.nvim' }
@@ -89,16 +100,19 @@ return require('packer').startup(function()
 
     use { 'nvim-treesitter/playground' }
 
-    use('nvim-tree/nvim-web-devicons')
-
     use("simrat39/rust-tools.nvim")
 
     -- rust loading indicator
     use({
         "j-hui/fidget.nvim",
+        tag = 'legacy',
     })
 
     use({ "nvim-treesitter/nvim-treesitter-context" })
 
-    use({'mfussenegger/nvim-jdtls'})
+    use({ 'mfussenegger/nvim-jdtls' })
+    --use({
+    --'/home/kyle/projects/sql-nvim/'
+    --}
+    -- luacheck: pop
 end)
