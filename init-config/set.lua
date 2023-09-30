@@ -7,7 +7,7 @@ local keymapper = require("vim.init-config.keymapper")
 local nnoremap = keymapper.nnoremap
 local inoremap = keymapper.inoremap
 local vnoremap = keymapper.vnoremap
-local xnoremap = keymapper.xnoremap
+--local xnoremap = keymapper.xnoremap
 
 vim.opt.syntax = "on"
 
