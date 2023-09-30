@@ -7,7 +7,6 @@ local keymapper = require("vim.init-config.keymapper")
 local nnoremap = keymapper.nnoremap
 local inoremap = keymapper.inoremap
 local vnoremap = keymapper.vnoremap
---local xnoremap = keymapper.xnoremap
 
 vim.opt.syntax = "on"
 
@@ -22,8 +21,6 @@ vim.opt.wrap = false
 vim.opt.smartcase = true
 vim.opt.swapfile = false
 vim.opt.backup = false
--- OLD METHOD DOES NOT WORK CORRECT ON WINDOWS
--- vim.opt.undodir=os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undodir = localConfigDir .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
@@ -42,7 +39,7 @@ nnoremap("<C-c>", "<Esc>")
 inoremap("<C-c>", "<Esc>")
 vnoremap("<C-c>", "<Esc>")
 
--- TODO we want to remap esc to something other than ctrl + c but not sure what yet
+-- TODO remap esc to something other than ctrl + c but not sure what yet
 nnoremap("<C-c>", "<Esc>")
 inoremap("<C-c>", "<Esc>")
 vnoremap("<C-c>", "<Esc>")
@@ -65,10 +62,11 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- find and replace in document, gets current word cursor is under
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- TODO finish this at somepoint
+-- TODO this is supposed to allow git to create a url to
+-- the line number the cursor is on this is supposed to allow git to create a url to the line number the cursor is on
 local currentCursorLine = function()
     local r, _ = vim.api.nvim_win_get_cursor(0)
-    return "<cmd>" ..r[1].. "GBrowse<CR>"
+    return "<cmd>" .. r[1] .. "GBrowse<CR>"
 end
 
 vim.keymap.set("n", "<leader>gt", currentCursorLine)

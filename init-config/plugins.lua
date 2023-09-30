@@ -1,6 +1,5 @@
 vim.cmd [[packadd packer.nvim]]
 
-
 -- The following is for a custom plugin and WIP
 --local keymapper = require("vim.init-config.keymapper")
 --local nnoremap = keymapper.nnoremap
