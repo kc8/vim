@@ -1,0 +1,7 @@
+- hosts: local
+  connection: local
+  vars:
+    username: kyle
+    home: ~/
+  tasks:
+    import_tasks: setup-zshrc.yaml
