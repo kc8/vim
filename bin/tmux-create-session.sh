@@ -5,7 +5,7 @@
 if [[ $# -eq 1 ]]; then
     selection=$1
 else 
-    selection=$(find $PROJECT_DIR $NOTES_DIR $NOTES_DIR $CONFIG_DIR -mindepth 1 -maxdepth 1 -type d | fzf)
+    selection=$(find $PROJECT_DIR $NOTES_DIR $CONFIG_DIR $SQL_DIR -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selection ]]; 
