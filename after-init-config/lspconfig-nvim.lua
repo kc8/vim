@@ -1,4 +1,4 @@
-local keymap = vim.keymap.set
+local osType = vim.loop.os_uname().sysname
 local api = vim.api
 local util = require 'lspconfig.util'
 
@@ -95,17 +95,22 @@ require('lspconfig')['gopls'].setup {
   single_file_supprt = true,
 }
 
-require('lspconfig')['java_language_server'].setup {
-  on_attach = on_attach,
-  cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
-}
+------------ JAVA JDTLS -----------------
+--
+local eclipseLauncher  = os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar" -- jdtls config is OS specific
+local function getJDTLSConfig()
+  if osType == "Darwin" then
+    return os.getenv("HOME") .. "/lsps/jdtls/config_mac"
+  else
+    return os.getenv("HOME") .. "/lsps/jdtls/config_linux"
+  end
+end
 
-local eclipseLauncher  = os.getenv("HOME") .. "/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
---- MAC only
-local jdtlsConfigPath_MAC = os.getenv("HOME") .. "/jdtls/config_mac"
+--local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
 local workspace_folder = os.getenv("HOME") .. "/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls_cmd = {
-   'java',
+    -- NOTE: jdtls only works on java 17
+    '/usr/bin/java_17/amazon-corretto-17.0.9.8.1-linux-x64/bin/java',
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -116,21 +121,16 @@ local jdtls_cmd = {
     '--add-opens', 'java.base/java.util=ALL-UNNAMED',
     '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
     '-jar', eclipseLauncher,
-    '-configuration', jdtlsConfigPath_MAC,
+    '-configuration', getJDTLSConfig(),
     '-data', workspace_folder
 }
-local java_jdtls_config = {
-  --cmd = {os.getenv("HOME") .. "/jdtls/bin/jdtls"},
-  cmd = jdtls_cmd,
-  -- root_dir = util.root_pattern('pom.xml', '.git'),
-  on_attach = on_attach
-}
---java_jdtls_config.on_attach = on_attach;
---require('jdtls').start_or_attach(java_jdtls_config)
+
 require('lspconfig')['jdtls'].setup{
   cmd = jdtls_cmd,
   on_attach = on_attach
 }
+
+------------ END JAVA JDTLS ---------------
 
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
