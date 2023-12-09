@@ -98,7 +98,8 @@ require('lspconfig')['gopls'].setup {
 ------------ JAVA JDTLS -----------------
 -- jdtls config is OS specific
 local eclipseLauncher
-= os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
+  -- = os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
+  = vim.fn.glob(os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
 local function getJDTLSConfig()
   if osType == "Darwin" then
     return os.getenv("HOME") .. "/lsps/jdtls/config_mac"
@@ -107,11 +108,19 @@ local function getJDTLSConfig()
   end
 end
 
+local function getJavaBin()
+  if osType == "Darwin" then
+    return 'java'
+  else
+    return '/usr/bin/java_17/amazon-corretto-17.0.9.8.1-linux-x64/bin/java'
+  end
+end
+
 local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
 local workspace_folder = os.getenv("HOME") .. "/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls_cmd = {
     -- NOTE: jdtls only works on java 17
-    '/usr/bin/java_17/amazon-corretto-17.0.9.8.1-linux-x64/bin/java',
+    getJavaBin(),
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
