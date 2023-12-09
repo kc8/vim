@@ -96,8 +96,9 @@ require('lspconfig')['gopls'].setup {
 }
 
 ------------ JAVA JDTLS -----------------
---
-local eclipseLauncher  = os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar" -- jdtls config is OS specific
+-- jdtls config is OS specific
+local eclipseLauncher
+= os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
 local function getJDTLSConfig()
   if osType == "Darwin" then
     return os.getenv("HOME") .. "/lsps/jdtls/config_mac"
@@ -106,7 +107,7 @@ local function getJDTLSConfig()
   end
 end
 
---local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
+local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
 local workspace_folder = os.getenv("HOME") .. "/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls_cmd = {
     -- NOTE: jdtls only works on java 17
