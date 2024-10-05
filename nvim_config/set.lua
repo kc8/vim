@@ -63,8 +63,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 local currentCursorLine = function()
-    local r, _ = vim.api.nvim_win_get_cursor(0)
-    return "<cmd>" .. r[1] .. "GBrowse<CR>"
+  local r, _ = vim.api.nvim_win_get_cursor(0)
+  return "<cmd>" .. r[1] .. "GBrowse<CR>"
 end
 
 vim.keymap.set("n", "<Leader>gt", currentCursorLine)
@@ -79,14 +79,14 @@ vim.keymap.set("n", "<Leader>ce", ":copen<CR>")
 
 local yankgroup = autogroup('highlightOnYank', {})
 autocmd('TextYankPost', {
-    group = yankgroup,
-    pattern = '*',
-    callback = function()
-        vim.highlight.on_yank({
-            higroup = 'IncSearch',
-            timeout = 40,
-        })
-    end,
+  group = yankgroup,
+  pattern = '*',
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = 'IncSearch',
+      timeout = 40,
+    })
+  end,
 })
 
 --  Open netrw in new vsp
@@ -97,6 +97,11 @@ nnoremap("<Leader>=", ":so ~/.config/nvim/init.lua<CR>")
 vim.keymap.set('n', "<silent><RightMouse>", ":call GuiShowContextMenu()<CR>")
 
 -- file formats
+vim.cmd([[silent! autocmd! filetypedetect BufRead,BufNewFile *.tf]])
+vim.cmd([[autocmd BufRead,BufNewFile *.hcl set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform]])
+vim.cmd([[autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json]])
 
 vim.cmd([[let g:terraform_align=1]])
 
