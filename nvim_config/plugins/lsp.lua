@@ -32,7 +32,8 @@ return {
         "eslint",
         "cssls",
         "clangd",
-        "jdtls"
+        "jdtls",
+        "terraformls"
       },
       automatic_installation = false,
       handlers = {
@@ -41,6 +42,7 @@ return {
         ['zls'] = require("vim.nvim_config.plugins.lsp.zig")(capabilities, onAttach),
         ['yamlls'] = require("vim.nvim_config.plugins.lsp.yaml")(capabilities, onAttach),
         ['jdtls'] = require("vim.nvim_config.plugins.lsp.java")(capabilities, onAttach),
+        ['terraformls'] = require("vim.nvim_config.plugins.lsp.terraform")(capabilities, onAttach),
 
         ['pylsp'] = function()
           require('lspconfig')['pylsp'].setup { on_attach = nil, }
@@ -72,7 +74,6 @@ return {
         end,
       },
     })
-    require("fidget").setup({})
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     cmp.setup({
       mapping = cmp.mapping.preset.insert({
@@ -105,5 +106,6 @@ return {
         prefix = "",
       },
     })
+    require("fidget").setup({})
   end
 }

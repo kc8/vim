@@ -23,6 +23,7 @@ return {
           "cpp",
           "markdown",
           "hcl",
+          "terraform",
           "go",
           "bash",
         },
