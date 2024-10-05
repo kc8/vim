@@ -1,6 +1,6 @@
 # NVim Config Files
 
-Current supported version of nVim is: 0.09
+Current supported version of nVim is: 0.10
 
 ## Initial Setup (working on Linux/Unix)
 
@@ -19,10 +19,6 @@ require("vim")
 ```
 which will tell vim to look inside the lua directory and then look for the vim (or this repo)
 
-##  First Start
-Because Packer has some auto install config you may need to restart once or twice, eventually
-you should be able to run `:PackerInstall` to get all plugins
-
 ## Installing Tooling
 - run `:checkahealth` and install needed deps
 - install: `npm`/`node`
@@ -32,6 +28,7 @@ you should be able to run `:PackerInstall` to get all plugins
 - You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep
 
 ### LSPs
+** Changing to `mason` automates some of the configuration with LSPs
 These need to be installed seperatley and added to the path so nvim lsp can use them
 There are some docs inside the lsp config files on how to get started
 - You may need to add these to your path

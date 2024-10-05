@@ -1,3 +1,4 @@
+local utils = {}
 local on_attach = function(client, bufnr)
   -- the below turns off LSPs from controlling color schemes
   client.server_capabilities.semanticTokensProvider = nil
@@ -15,7 +16,6 @@ local on_attach = function(client, bufnr)
   vim.keymap.set("n", "gD", vim.lsp.buf.type_definition, keymap_opts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, keymap_opts)
   vim.keymap.set("n", "gds", vim.lsp.buf.document_symbol, keymap_opts)
-  -- query a symbol (like function name or struct name) and lsp *should* return location
   vim.keymap.set("n", "gws", vim.lsp.buf.workspace_symbol, keymap_opts)
   vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
   vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run, keymap_opts)
@@ -48,4 +48,14 @@ local on_attach = function(client, bufnr)
   end
 end
 
-return on_attach
+local cmpLsp = require("cmp_nvim_lsp")
+local capabilities = vim.tbl_deep_extend(
+  "force",
+  {},
+  vim.lsp.protocol.make_client_capabilities(),
+  cmpLsp.default_capabilities())
+
+utils.onAttach = on_attach
+utils.capabilities = capabilities
+
+return utils

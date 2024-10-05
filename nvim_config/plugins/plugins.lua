@@ -45,9 +45,4 @@ return {
       vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
     end
   },
-
-  -- Currently not used
-  -- {
-  -- "simrat39/rust-tools.nvim"
-  -- }
 }

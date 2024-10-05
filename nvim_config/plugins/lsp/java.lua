@@ -44,7 +44,8 @@ local jdtls_cmd = {
 local function config(capabilities, onAttach)
   require('lspconfig')['jdtls'].setup {
     cmd = jdtls_cmd,
-    on_attach = onAttach
+    on_attach = onAttach,
+    capabilities = capabilities
   }
 end
 

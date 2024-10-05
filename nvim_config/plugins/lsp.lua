@@ -12,14 +12,9 @@ return {
   },
   config = function()
     local cmp = require("cmp")
-    local cmpLsp = require("cmp_nvim_lsp")
-    local capabilities = vim.tbl_deep_extend(
-      "force",
-      {},
-      vim.lsp.protocol.make_client_capabilities(),
-      cmpLsp.default_capabilities())
-
-    local onAttach = require("vim.nvim_config.plugins.lsp.onattach")
+    -- local cmpLsp = require("cmp_nvim_lsp")
+    local capabilities = require("vim.nvim_config.plugins.lsp.lsp_functions").capabilities
+    local onAttach = require("vim.nvim_config.plugins.lsp.lsp_functions").onAttach
 
     --- MASON LSP SETTINGS ---
     require("mason").setup()
@@ -41,12 +36,11 @@ return {
       },
       automatic_installation = false,
       handlers = {
-        ['gopls'] = require("vim.nvim_config.plugins.lsp.gopls")(capabilities, nil),
-        ['lua_ls'] = require("vim.nvim_config.plugins.lsp.luals")(capabilities, nil),
-        ['tflint'] = require("vim.nvim_config.plugins.lsp.tflint")(capabilities, nil),
-        ['zls'] = require("vim.nvim_config.plugins.lsp.zig")(capabilities, nil),
-        ['yamlls'] = require("vim.nvim_config.plugins.lsp.yaml")(capabilities, nil),
-        ['jdtls'] = require("vim.nvim_config.plugins.lsp.java")(capabilities, nil),
+        ['gopls'] = require("vim.nvim_config.plugins.lsp.gopls")(capabilities, onAttach),
+        ['lua_ls'] = require("vim.nvim_config.plugins.lsp.luals")(capabilities, onAttach),
+        ['zls'] = require("vim.nvim_config.plugins.lsp.zig")(capabilities, onAttach),
+        ['yamlls'] = require("vim.nvim_config.plugins.lsp.yaml")(capabilities, onAttach),
+        ['jdtls'] = require("vim.nvim_config.plugins.lsp.java")(capabilities, onAttach),
 
         ['pylsp'] = function()
           require('lspconfig')['pylsp'].setup { on_attach = nil, }

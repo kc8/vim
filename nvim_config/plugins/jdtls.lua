@@ -1,6 +1,4 @@
 return {
   "mfussenegger/nvim-jdtls",
-  config = function()
-    -- TODO
-  end
+    -- see lsp config in mason for settings
 }

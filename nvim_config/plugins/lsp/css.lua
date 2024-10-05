@@ -2,6 +2,7 @@ local util = require 'lspconfig.util'
 
 local function config(capabilities, onAttach)
   require('lspconfig')['cssls'].setup {
+    capabilities = capabilities,
     on_attach = onAttach,
     cmd = { "vscode-css-language-server", "--stdio" },
     filetypes = { "css", "scss" },
