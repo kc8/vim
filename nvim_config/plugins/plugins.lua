@@ -7,7 +7,7 @@ return {
   {
     "tpope/vim-rhubarb",
     config = function()
-      local keymapper = require("vim.init-config.keymapper")
+      local keymapper = require("vim..keymapper")
       local nnoremap = keymapper.nnoremap
 
       -- merging diffs
@@ -37,6 +37,7 @@ return {
   { 'sainnhe/sonokai' },
   { 'rose-pine/neovim' },
   { 'editorconfig/editorconfig-vim' },
+
   { 'tpope/vim-fugitive' },
   { 'vim-airline/vim-airline' },
   {

@@ -4,7 +4,7 @@ return {
   config = function()
     local harpoon = require("harpoon")
     harpoon:setup()
-    local keymapper = require("vim.init-config.keymapper")
+    local keymapper = require("vim.keymapper")
     local nnoremap = keymapper.nnoremap
     nnoremap("<Leader><tab>", function()
       harpoon.ui:toggle_quick_menu(harpoon:list())
