@@ -62,19 +62,20 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 -- find and replace in document, gets current word cursor is under
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
--- TODO this is supposed to allow git to create a url to
--- the line number the cursor is on this is supposed to allow git to create a url to the line number the cursor is on
 local currentCursorLine = function()
     local r, _ = vim.api.nvim_win_get_cursor(0)
     return "<cmd>" .. r[1] .. "GBrowse<CR>"
 end
 
-vim.keymap.set("n", "<leader>gt", currentCursorLine)
-vim.keymap.set("n", "<leader>gb", "<cmd>GBrowse<CR>")
-vim.keymap.set("n", "<leader>gl", "<cmd>Git blame<CR>")
-vim.keymap.set("n", "<leader>g", "<cmd>Git<CR>")
+vim.keymap.set("n", "<Leader>gt", currentCursorLine)
+vim.keymap.set("n", "<Leader>gb", "<cmd>GBrowse<CR>")
+vim.keymap.set("n", "<Leader>gl", "<cmd>Git blame<CR>")
+vim.keymap.set("n", "<Leader>g", "<cmd>Git<CR>")
 
-vim.keymap.set("n", "<leader>fo", ":copen<CR>")
+-- quick fix list
+vim.keymap.set("n", "<Leader>ck", ":cnext<CR>")
+vim.keymap.set("n", "<Leader>cj", ":cprev<CR>")
+vim.keymap.set("n", "<Leader>ce", ":copen<CR>")
 
 local yankgroup = autogroup('highlightOnYank', {})
 autocmd('TextYankPost', {
@@ -87,3 +88,9 @@ autocmd('TextYankPost', {
         })
     end,
 })
+
+--  Open netrw in new vsp
+nnoremap("<Leader><CR>", ":Vex<CR>")
+-- source the nvim config
+nnoremap("<Leader>=", ":so ~/.config/nvim/init.lua<CR>")
+vim.g.zig_fmt_autosave = 0

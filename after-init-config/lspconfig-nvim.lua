@@ -1,3 +1,4 @@
+local osType = vim.loop.os_uname().sysname
 local api = vim.api
 local util = require 'lspconfig.util'
 
@@ -10,9 +11,11 @@ local get_capabilities = function()
 end
 
 local capabilities = get_capabilities()
--- vim.lsp.set_log_level('off')
+vim.lsp.set_log_level("debug")
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
+  -- the below turns off LSPs from controlling color schemes
+  client.server_capabilities.semanticTokensProvider = nil
   local keymap_opts = { buffer = bufnr }
 
   vim.wo.signcolumn = "yes"
@@ -93,19 +96,55 @@ require('lspconfig')['gopls'].setup {
   single_file_supprt = true,
 }
 
--- TODO we need to update the language server to be windows/ mac etc. specific
--- Requires vscode-lanaguage-server installed and on path
--- Needs to built with the current jdk version
--- then the command to the starting teh server is here
-require('lspconfig')['java_language_server'].setup {
-  on_attach = on_attach,
-  cmd = { "sh", "/Users/kyle.cooper/java-language-server/dist/lang_server_mac.sh" },
+------------ JAVA JDTLS -----------------
+-- jdtls config is OS specific
+-- Found herre: https://download.eclipse.org/jdtls/snapshots/
+local eclipseLauncher
+  -- = os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
+  = vim.fn.glob(os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
+local function getJDTLSConfig()
+  if osType == "Darwin" then
+    return os.getenv("HOME") .. "/lsps/jdtls/config_mac"
+  else
+    return os.getenv("HOME") .. "/lsps/jdtls/config_linux"
+  end
+end
+
+local function getJavaBin()
+  -- TODO refine this/check working on various OSes
+  if osType == "Darwin" then
+    return 'java'
+  else
+    return 'java'
+  end
+end
+
+local root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
+local workspace_folder = os.getenv("HOME") .. "/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
+local jdtls_cmd = {
+    -- NOTE: jdtls only works on java 17
+    getJavaBin(),
+    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+    '-Dosgi.bundles.defaultStartLevel=4',
+    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+    '-Dlog.protocol=true',
+    '-Dlog.level=ALL',
+    '-Xmx1g',
+    '--add-modules=ALL-SYSTEM',
+    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+    '-jar', eclipseLauncher,
+    '-configuration', getJDTLSConfig(),
+    '-data', workspace_folder
 }
---local java_jdtls_config = {
--- cmd = {'/path/to/jdt-language-server/bin/jdtls'},
--- root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
---}
--- require('jdtls').start_or_attach(java_jdtls_config)
+
+require('lspconfig')['jdtls'].setup{
+  cmd = jdtls_cmd,
+  on_attach = on_attach
+}
+
+------------ END JAVA JDTLS ---------------
+
 -- https://github.com/luals/lua-language-server/wiki/Getting-Started#command-line
 require('lspconfig')['lua_ls'].setup {
   on_attach = on_attach,
@@ -262,6 +301,7 @@ require('lspconfig')['tflint'].setup {
   on_attach = on_attach,
   filetypes = { "terraform" },
   cmd = { "tflint", "--langserver" },
+  capabilities = capabilities,
   root_dir = util.root_pattern(".terraform", ".git", ".tflint.hcl")
 }
 
@@ -291,8 +331,8 @@ require('lspconfig')['yamlls'].setup {
   }
 }
 
--- NOTE neede to remove this due to maybe (?) performance issue
---require('lspsaga').setup {
+-- NOTE needed to remove this due to maybe (?) performance issue
+-- require('lspsaga').setup {
 -- on_attach = on_attach,
 --}
 

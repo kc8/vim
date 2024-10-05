@@ -3,7 +3,10 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/usr/local/bin/nvim/bin:$PATH
 
 export PATH=/usr/local/bin/cmake/bin:$PATH
-# lsps
+# lsps and prog langs
+export PATH=$HOME/prog_langs:$PATH
+export PATH=$HOME/prog_langs/zig:$PATH
+export PATH=$HOME/prog_langs/go/bin:$PATH
 export PATH=$HOME/lsps/lua/bin:$PATH
 export PATH=$HOME/lsps/zig/bin:$PATH
 export PATH=$HOME/lsps/terraform/tflint:$PATH
@@ -12,13 +15,7 @@ export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/lsps/rust-analyzer:$PATH
 export PATH=$HOME/projects/sql-nvim:$PATH
 export PATH=$HOME/node/bin:$PATH
-
 export PATH=$HOME/go/bin:$PATH
-
-# prog langs
-export PATH=$HOME/prog_langs:$PATH
-export PATH=$HOME/prog_langs/zig:$PATH
-export PATH=$HOME/prog_langs/go/bin:$PATH
 
 # general bins
 export PATH=$HOME/bins/:$PATH
@@ -36,7 +33,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="robbyrussell"
 
-zstyle ':omz:update' mode auto 
+zstyle ':omz:update' mode auto
 zstyle ':omz:update' frequency 14
 
 # Uncomment the following line if pasting URLs and other text is messed up.

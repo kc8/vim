@@ -11,6 +11,23 @@ local function getVimConfigDir()
     end
 end
 
+-- Linux returns Linux
+-- Darwin return max
+local function getOSType()
+  local mac = "Darwin"
+  local linux = "Linux"
+
+  local osType = vim.loop.os_uname().sysname
+  if osType == mac then
+    return "Mac"
+  elseif osType == linux then
+    return "Linux"
+  end
+
+  return "OS_UNDEFINED"
+end
+
 getOSSettings.getVimConfigDir = getVimConfigDir()
+getOSSettings.getOS = getOSType()
 
 return getOSSettings
