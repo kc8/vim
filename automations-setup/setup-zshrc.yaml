@@ -1,7 +1,0 @@
-- name: Install ZSH config
-  copy:
-    src: ../dotfiles/.zshrc
-    dest: "{{ home }}/.zshrc"
-    mode: 0644
-    owner: "{{ username }}"
-    backup: true
