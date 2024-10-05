@@ -12,6 +12,7 @@ local function config(capabilities, onAttach)
       }
     }
   }
+  vim.g.zig_fmt_autosave = 0
 end
 
 return config

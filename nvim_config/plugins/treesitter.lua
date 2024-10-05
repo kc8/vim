@@ -1,5 +1,8 @@
 return {
   {
+    'nvim-treesitter/playground'
+  },
+  {
     "nvim-treesitter/nvim-treesitter-context"
   },
   {
@@ -7,8 +10,22 @@ return {
     build = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup({
-        ensure_installed = { "javascript", "python", "c", "lua", "scala", "bash", "java", "cpp",
-          "markdown", "hcl" },
+        ensure_installed = {
+          "javascript",
+          "typescript",
+          "jsdoc",
+          "python",
+          "c",
+          "lua",
+          "scala",
+          "bash",
+          "java",
+          "cpp",
+          "markdown",
+          "hcl",
+          "go",
+          "bash",
+        },
         sync_install = false,
         auto_install = false,
         highlight = {
