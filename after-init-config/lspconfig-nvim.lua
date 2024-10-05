@@ -11,9 +11,10 @@ local get_capabilities = function()
 end
 
 local capabilities = get_capabilities()
--- vim.lsp.set_log_level('off')
+vim.lsp.set_log_level("debug")
 
 local on_attach = function(client, bufnr)
+  -- the below turns off LSPs from controlling color schemes
   client.server_capabilities.semanticTokensProvider = nil
   local keymap_opts = { buffer = bufnr }
 
@@ -97,6 +98,7 @@ require('lspconfig')['gopls'].setup {
 
 ------------ JAVA JDTLS -----------------
 -- jdtls config is OS specific
+-- Found herre: https://download.eclipse.org/jdtls/snapshots/
 local eclipseLauncher
   -- = os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_1.6.400.v20210924-0641.jar"
   = vim.fn.glob(os.getenv("HOME") .. "/lsps/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
@@ -109,10 +111,11 @@ local function getJDTLSConfig()
 end
 
 local function getJavaBin()
+  -- TODO refine this/check working on various OSes
   if osType == "Darwin" then
     return 'java'
   else
-    return '/usr/bin/java_17/amazon-corretto-17.0.9.8.1-linux-x64/bin/java'
+    return 'java'
   end
 end
 
@@ -298,6 +301,7 @@ require('lspconfig')['tflint'].setup {
   on_attach = on_attach,
   filetypes = { "terraform" },
   cmd = { "tflint", "--langserver" },
+  capabilities = capabilities,
   root_dir = util.root_pattern(".terraform", ".git", ".tflint.hcl")
 }
 
@@ -327,8 +331,8 @@ require('lspconfig')['yamlls'].setup {
   }
 }
 
--- NOTE neede to remove this due to maybe (?) performance issue
---require('lspsaga').setup {
+-- NOTE needed to remove this due to maybe (?) performance issue
+-- require('lspsaga').setup {
 -- on_attach = on_attach,
 --}
 

@@ -93,3 +93,4 @@ autocmd('TextYankPost', {
 nnoremap("<Leader><CR>", ":Vex<CR>")
 -- source the nvim config
 nnoremap("<Leader>=", ":so ~/.config/nvim/init.lua<CR>")
+vim.g.zig_fmt_autosave = 0

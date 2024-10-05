@@ -4,14 +4,14 @@
 
 ### Pre-Reqs
 - tmux must be installed
-- There are some env variables that you need 
+- There are some env variables that you need
 - Assumes working with bash and zsh
-- fzf must be installed 
+- fzf must be installed
 - (1) Setup path for this dir ex: ```PATH="$HOME/.config/nvim/lua/vim/bin:$PATH"```
 
 ## tmux config setup
-1. I decided to hard link the conf here to the my home dir ```ln $(echo $TMUX_CONFIG) ~/.tmux.conf``` 
-    1. Also the default is within the home dir, so this should also work ```ln ./.tmux.conf ~/.tmux.config``` 
+1. I decided to hard link the conf here to the my home dir ```ln $(echo $TMUX_CONFIG) ~/.tmux.conf```
+    1. Also the default is within the home dir, so this should also work ```ln ./.tmux.conf ~/.tmux.conf```
 
 ## zsh specific commands
 - [Bind Key Notiation](https://github.com/rothgar/mastering-zsh/blob/master/docs/helpers/bindkey.md)
