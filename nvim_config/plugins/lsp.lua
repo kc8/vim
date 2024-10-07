@@ -22,7 +22,7 @@ return {
       ensure_installed = {
         "lua_ls",
         "gopls",
-        -- "nvim-metals", -- TODO not supported
+        -- "nvim-metals", -- not supported
         "tflint",
         "zls",
         "pylsp",

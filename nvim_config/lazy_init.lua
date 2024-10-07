@@ -1,6 +1,6 @@
 local lzp = vim.fn.stdpath('data') .. "lazy/lazy.nvim"
 
-local isBootstraped = not vim.uv.fs_stat(lzp)
+local isBootstraped = vim.uv.fs_stat(lzp)
 if not isBootstraped then
   vim.fn.system({
     "git",
