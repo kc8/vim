@@ -28,11 +28,7 @@ return {
     }
   },
   {
-    'morhetz/gruvbox',
-    conifig = function()
-      vim.cmd("colorscheme gruvbox")
-      -- vim.opt.background = "dark"
-    end
+    'ellisonleao/gruvbox',
   },
   { 'sainnhe/sonokai' },
   { 'rose-pine/neovim' },

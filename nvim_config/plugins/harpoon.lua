@@ -23,7 +23,7 @@ return {
     end)
 
     nnoremap("<Leader>m", function()
-      harpoon:list():append()
+      harpoon:list():add()
     end)
 
     local function conCatString(a, b)
