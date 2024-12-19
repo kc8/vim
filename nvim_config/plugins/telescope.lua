@@ -3,8 +3,6 @@ local make_entry = require "telescope.make_entry"
 local pickers = require "telescope.pickers"
 local conf = require("telescope.config").values
 
-local M = {}
-
 local liveSearchWithExpression = function(opts)
   opts = opts or {}
   opts.cwd = opts.cwd or vim.uv.cwd()
@@ -123,6 +121,4 @@ local telescoprConfig = {
   end
 }
 
-M = telescoprConfig
-
-return M
+return telescoprConfig
