@@ -33,7 +33,9 @@ return {
         "cssls",
         "clangd",
         "jdtls",
-        "terraformls"
+        "terraformls",
+        "ocamllsp",
+        "tflint"
       },
       automatic_installation = false,
       handlers = {
@@ -43,6 +45,17 @@ return {
         ['yamlls'] = require("vim.nvim_config.plugins.lsp.yaml")(capabilities, onAttach),
         ['jdtls'] = require("vim.nvim_config.plugins.lsp.java")(capabilities, onAttach),
         ['terraformls'] = require("vim.nvim_config.plugins.lsp.terraform")(capabilities, onAttach),
+
+        ['ocamllsp'] = function()
+          require('lspconfig')['ocamllsp'].setup { on_attach = onAttach, }
+        end,
+        ['tflint'] = function()
+          require('lspconfig')['tflint'].setup {
+            on_attach = onAttach,
+            filetypes = { "terraform" },
+            cmd = { "tflint", "--langserver" }
+          }
+        end,
 
         ['pylsp'] = function()
           require('lspconfig')['pylsp'].setup { on_attach = nil, }
