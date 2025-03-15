@@ -36,10 +36,18 @@ return {
 
   { 'tpope/vim-fugitive' },
   { 'vim-airline/vim-airline' },
+  { 'vim-airline/vim-airline' },
   {
     "mbbill/undotree",
     config = function()
       vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
     end
   },
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod',                     lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+    },
+  }
 }

@@ -111,3 +111,11 @@ vim.cmd([[let g:terraform_align=1]])
 -- keymap("n", "<leader>tv", ":!terraform validate<CR>", opts)
 -- keymap("n", "<leader>tp", ":!terraform plan<CR>", opts)
 -- keymap("n", "<leader>taa", ":!terraform apply<CR>", opts)
+
+-- Custom treesitter highlight
+-- vim.cmd([[hi @function.builtin guifg.pink]])
+
+-- Prevent defaults for from :h sql-completion-static function
+-- Not having this will cause a `C` char to appear at the end of sql file types when using ctl-c
+vim.g.ftplugin_sql_omni_key = '<C-kk>'
+
