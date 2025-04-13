@@ -28,7 +28,7 @@ return {
     }
   },
   {
-    'ellisonleao/gruvbox',
+    'ellisonleao/gruvbox.nvim',
   },
   { 'sainnhe/sonokai' },
   { 'rose-pine/neovim' },
@@ -46,7 +46,13 @@ return {
   {
     'kristijanhusak/vim-dadbod-ui',
     dependencies = {
-      { 'tpope/vim-dadbod',                     lazy = true },
+      {
+        'tpope/vim-dadbod',
+        lazy = true,
+        config = function()
+          vim.g.db_ui_execute_on_save = 0
+        end
+      },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
   }
