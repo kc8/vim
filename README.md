@@ -1,8 +1,10 @@
 # NVim Config Files
 
-Current supported version of nVim is: 0.10
+Current supported version of nVim is: 0.11
 
-## Initial Setup (working on Linux/Unix)
+## Initial Setup
+
+1. OS: default setup is Linux centric, with some manual steps for getting mac os to work
 
 1. Create an init.lua (or init.vim) insider of the config directory (~/.config/nvim/[xxxx]) for your VIM setup
 1. Create a ./lua directory there and pull down this repo inside of that directory
@@ -24,8 +26,7 @@ which will tell vim to look inside the lua directory and then look for the vim (
 - install: `npm`/`node`
 - install: python
 - install: pip -> then pynvim can be installed if needed
-
-- You will need ripgrep (rg): https://github.com/BurntSushi/ripgrep
+- install: ripgrep (rg): https://github.com/BurntSushi/ripgrep
 
 ### LSPs
 ** Changing to `mason` automates some of the configuration with LSPs
