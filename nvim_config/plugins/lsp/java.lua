@@ -15,19 +15,10 @@ local function getJDTLSConfig()
   end
 end
 
-local function getJavaBin()
-  -- TODO need to test this again
-  if osType == "Darwin" then
-    return 'java'
-  else
-    return 'java'
-  end
-end
-
 local root_dir = require('jdtls.setup').find_root({ '.git', 'mvnw', 'gradlew' })
 local workspace_folder = os.getenv("HOME") .. "/workspace" .. vim.fn.fnamemodify(root_dir, ":p:h:t")
 local jdtls_cmd = {
-  getJavaBin(),
+  'java',
   '-Declipse.application=org.eclipse.jdt.ls.core.id1',
   '-Dosgi.bundles.defaultStartLevel=4',
   '-Declipse.product=org.eclipse.jdt.ls.core.product',
