@@ -27,13 +27,10 @@ return {
       { 'mfussenegger/nvim-dap' },
     }
   },
-  {
-    'ellisonleao/gruvbox.nvim',
-  },
+  { 'ellisonleao/gruvbox.nvim',},
   { 'sainnhe/sonokai' },
   { 'rose-pine/neovim' },
   { 'editorconfig/editorconfig-vim' },
-
   { 'tpope/vim-fugitive' },
   { 'vim-airline/vim-airline' },
   { 'vim-airline/vim-airline' },
