@@ -43,4 +43,4 @@ To setup dot files, do the following:
 1. Make sure that `zsh` is instaled
 2. Run the script in dotfiles `create_additional_config.sh` (this creates a stub function for any additional config)
 3. Run `ln dotfiles/.zshrc ~/.zshrc`
-
+4. tmux has os only config, you will need to uncomment/modify these in `bin/.tmux.conf`
