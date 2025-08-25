@@ -37,3 +37,7 @@ Current supported version of nVim is: 0.11
 # Installing and using zsh
 1. intall zsh
 1. install the `oh-my-zsh` plugin
+
+# Ghostty Term settings
+Add the following to the config file
+- Turn off ligatures: `font-feature=-calt,-lig,dlig`
