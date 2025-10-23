@@ -1,13 +1,9 @@
-local util = require 'lspconfig.util'
-
 local function config(capabilities, onAttach)
-  local lspConfig = require("lspconfig")
-  lspConfig.lua_ls.setup {
+  return {
+    attr = "attr",
     on_attach = onAttach,
     capabilities = capabilities,
     cmd = { "lua-language-server" },
-    root_dir = util.root_pattern(".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml",
-      "stylua.toml", "selene.toml", "selene.yml", ".git"),
     settings = {
       Lua = {
         runtime = { version = 'LuaJIT', },
@@ -25,4 +21,4 @@ local function config(capabilities, onAttach)
   }
 end
 
-return config
+return { config = config }

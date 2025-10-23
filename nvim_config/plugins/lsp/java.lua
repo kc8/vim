@@ -5,7 +5,7 @@ local osType = vim.loop.os_uname().sysname
 -- Found herre: https://download.eclipse.org/jdtls/snapshots/
 local eclipseLauncher =
     vim.fn.glob(os.getenv("HOME") ..
-    "/langs_and_lang_tools/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
+      "/langs_and_lang_tools/jdtls/plugins/org.eclipse.equinox.launcher_*.jar")
 
 local function getJDTLSConfig()
   if osType == "Darwin" then
@@ -40,7 +40,8 @@ local jdtls_settings = {
 }
 
 local function config(capabilities, onAttach)
-  require('lspconfig')['jdtls'].setup {
+  return
+  {
     cmd = jdtls_cmd,
     on_attach = onAttach,
     capabilities = capabilities,
