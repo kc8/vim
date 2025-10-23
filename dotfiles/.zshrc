@@ -1,4 +1,4 @@
-$HOME/.additional_config.sh
+source $HOME/.additional_config.sh
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=/usr/local/bin/nvim/bin:$PATH
 
@@ -16,6 +16,11 @@ export PATH=$HOME/lsps/rust-analyzer:$PATH
 export PATH=$HOME/projects/sql-nvim:$PATH
 export PATH=$HOME/node/bin:$PATH
 export PATH=$HOME/go/bin:$PATH
+export PATH=$HOME/projects/misc-utils/bin:$PATH
+export FLYCTL_INSTALL="$HOME/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+export EDITOR="nvim"
 
 # general bins
 export PATH=$HOME/bins/:$PATH
@@ -45,3 +50,10 @@ plugins=(git)
 source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"

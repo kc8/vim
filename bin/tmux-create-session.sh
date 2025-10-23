@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO add original author credit to this script
-
 if [[ $# -eq 1 ]]; then
     selection=$1
 else
@@ -25,7 +23,6 @@ if ! tmux has-session -t=$selectedBaseName 2> /dev/null; then
     tmux new-session -ds $selectedBaseName -c $selection
 fi
 
-## Attach if inside, other wise switch clien
 if [[ -z $TMUX ]]; then
     tmux  attach -d -t $selectedBaseName
 else

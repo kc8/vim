@@ -1,43 +1,47 @@
-# NVim Config Files
+# Neovim Configuration and Tools
 
-Current supported version of nVim is: 0.11
+Current supported version of neovim is: 0.11
 
 ## Initial Setup
-1. OS: default setup is Linux centric, with some manual steps for getting mac os to work
-1. create an `init.lua` in the config directory: `~/.config/nvim/init.lua` for your nVim setup. The file
-   should contain `require("vim")`
-1. create a ./lua directory there and pull down this repo inside of that directory
+1. install zsh
+  - [here](https://github.com/ohmyzsh/ohmyzsh/wiki/Installing-ZSH)
+1. install the `oh-my-zsh` plugin
+  - `sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
+1. download a stable version of neovim [here](https://github.com/neovim/neovim/releases)
+1. clone this repo into `$HOME/.config/nvim`
+1. run `bin/setup-dev-env` to automate some setup
 
-## Install Tooling
-- run `:checkahealth` and install needed deps
-- install npm, node, and nvm
-- install python
-- install pip -> then pynvim can be installed if needed
-- install Golang
-- Install ripgrep (rg): https://github.com/BurntSushi/ripgrep
-- install languages as needed
-- install lua and lua rocks
-  - nvim only supports lua 5.1. You need to install 5.1 first and lua rocks "should" install with
-    that version
-- run `:Checkhealth` to ensure most items are ok. Fix areas which need fixing
+## Install Tooling for Neovim
+- run `:checkhealth` and install needed dependencies
+- npm, node, and nvm
+- python
+- pip -> then pynvim can be installed if needed
+- golang
+- ripgrep (rg): https://github.com/BurntSushi/ripgrep
+- languages as needed
+- lua and luarocks
+  - nvim only supports lua 5.1.
+- run `:checkhealth` again
 
 ### LSPs
 - `mason` automates some of the configuration with LSPs. You will still need the tooling above and
-  releated langauges installed
+  related languages installed
 
 ## Additional Config
-- If you have a GHE you can set an env var `GHE_URL` allowing `:GBrowse` to correctly work
+- If you have a GHE you can set an environment var `GHE_URL` allowing `:GBrowse` to correctly work
+- You can run the `dotfiles/create_additional_config.sh` script and then add the GHE_URL in there
 
-# Dot Files
-1. make sure that `zsh` is instaled
-2. run the script in dotfiles `create_additional_config.sh` (this creates a stub function for any additional config)
-3. run `ln dotfiles/.zshrc ~/.zshrc`
-4. tmux has os only config, you will need to uncomment/modify these in `bin/.tmux.conf`
+## Dot Files
+1. ensure `zsh` is installed
+1. run the script in `./dotfiles/create_additional_config.sh`
+  - this creates a stub script you can add additional configuration to such as environment variables)
+1. `ln dotfiles/.zshrc ~/.zshrc`
+  - NOTE: use `additional_config.sh` to make changes to .zshrc that should not be reflected in GitHub
+1. tmux has os only config, you will need to uncomment/modify these in `dotfiles/.tmux.conf`
 
-# Installing and using zsh
-1. intall zsh
-1. install the `oh-my-zsh` plugin
+## Other Tools
+- A list/ shell script that is a WIP: see [tools_install.sh](./tools_install.sh)
 
-# Ghostty Term settings
+### Ghostty Term settings
 Add the following to the config file
 - Turn off ligatures: `font-feature=-calt,-lig,dlig`
