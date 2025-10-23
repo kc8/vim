@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+NAME=$1
+
+if [ -z $NAME ]; then
+  echo "Must provide the name of the script. Example nenshs name.sh"
+  exit
+fi
+if [ -e $NAME ]; then
+  echo "$NAME already exists in dir"
+  exit
+fi
+
+echo '#!/usr/bin/env bash
+set -euo pipefail
+' > "$NAME"
+
+chmod +x "$NAME"
+"$EDITOR" "$NAME"

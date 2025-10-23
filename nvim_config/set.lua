@@ -93,6 +93,7 @@ autocmd('TextYankPost', {
 nnoremap("<Leader><CR>", ":Vex<CR>")
 -- source the nvim config
 nnoremap("<Leader>=", ":so ~/.config/nvim/init.lua<CR>")
+vim.g.netrw_banner = 0
 
 vim.keymap.set('n', "<silent><RightMouse>", ":call GuiShowContextMenu()<CR>")
 

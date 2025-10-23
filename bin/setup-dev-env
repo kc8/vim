@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+TEMP="./base"
+BASEDIR=$TEMP #$HOME
+
+NVIM_CONFIG=$BASEDIR/.config/nvim/init.lua
+echo "Setting up neoVim config in $NVIM_CONFIG"
+
+mkdir -p $BASEDIR/.config/nvim/lua
+echo 'require('vim')' > "$NVIM_CONFIG"
+
+echo "Linking tmux config to $BASEDIR/.tmux.conf"
+ln ../dotfiles/.tmux.conf $BASEDIR/.tmux.conf
+
+echo "Copying zshrc config to $BASEDIR/.zshrc"
+cp dotfiles/.zshrc ~/.zshrc`
+
+echo "Creating boiler plater .gitconfig file in $BASEDIR/.gitconfig"
+echo '
+[core]
+	editor = nvim
+[push]
+	autoSetupRemote = true
+' > $BASEDIR/.gitconfig
