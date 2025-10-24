@@ -34,26 +34,33 @@ local on_attach = function(client, bufnr)
 
   -- show diag when curosr hold
   local diag_float_grp = vim.api.nvim_create_augroup("DiagnosticFloat", { clear = true })
-  vim.api.nvim_create_autocmd("CursorHold", {
+  vim.api.nvim_create_autocmd({ "CursorHold" }, {
     callback = function()
       vim.diagnostic.open_float(nil, { focusable = false })
     end,
     group = diag_float_grp,
   })
-
-  local signs = { Error = "●", Warn = "▲", Hint = "🔍", Info = "ⓘ" }
-  for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-  end
 end
 
+vim.diagnostic.config({
+  virtual_text = true,
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = "●",
+      [vim.diagnostic.severity.WARN] = "▲",
+      [vim.diagnostic.severity.HINT] = "🔍",
+      [vim.diagnostic.severity.INFO] = "ⓘ",
+    }
+  },
+})
+-- TODO: cmp_lsp may not be needed here
 local cmpLsp = require("cmp_nvim_lsp")
 local capabilities = vim.tbl_deep_extend(
   "force",
   {},
   vim.lsp.protocol.make_client_capabilities(),
-  cmpLsp.default_capabilities())
+  cmpLsp.default_capabilities()
+)
 
 utils.onAttach = on_attach
 utils.capabilities = capabilities

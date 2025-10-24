@@ -1,10 +1,9 @@
-local util = require 'lspconfig.util'
-
 local function config(capabilities, onAttach)
-  require('lspconfig')['zls'].setup {
+  vim.g.zig_fmt_autosave = 0
+
+  return {
     capabilities = capabilities,
     on_attach = onAttach,
-    root_dir = util.root_pattern("build.zig", ".git"),
     docs = {
       description = [[]],
       default_config = {
@@ -12,7 +11,6 @@ local function config(capabilities, onAttach)
       }
     }
   }
-  vim.g.zig_fmt_autosave = 0
 end
 
 return config

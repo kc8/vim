@@ -37,44 +37,57 @@ return {
       },
       automatic_installation = false,
       handlers = {
-        ['gopls'] = require("vim.nvim_config.plugins.lsp.gopls")(capabilities, onAttach),
-        ['lua_ls'] = require("vim.nvim_config.plugins.lsp.luals")(capabilities, onAttach),
-        ['zls'] = require("vim.nvim_config.plugins.lsp.zig")(capabilities, onAttach),
-        ['yamlls'] = require("vim.nvim_config.plugins.lsp.yaml")(capabilities, onAttach),
-        ['jdtls'] = require("vim.nvim_config.plugins.lsp.java")(capabilities, onAttach),
-        ['terraformls'] = require("vim.nvim_config.plugins.lsp.terraform")(capabilities, onAttach),
-        ['tflint'] = require("vim.nvim_config.plugins.lsp.tflint")(capabilities, onAttach),
+        ['terraformls'] =
+            vim.lsp.config('terraformls',
+              require("vim.nvim_config.plugins.lsp.terraform")(capabilities, onAttach)
+            ),
+        ['tflint'] =
+            vim.lsp.config('tflint',
+              require("vim.nvim_config.plugins.lsp.tflint")(capabilities, onAttach)
+            ),
+        ['jdtls'] =
+            vim.lsp.config('jdtls',
+              require("vim.nvim_config.plugins.lsp.java")(capabilities, onAttach)
+            ),
+        ['yamlls'] =
+            vim.lsp.config('yamlls',
+              require("vim.nvim_config.plugins.lsp.yaml")(capabilities, onAttach)
+            ),
 
-        ['pylsp'] = function()
-          require('lspconfig')['pylsp'].setup {
-            on_attach = nil,
-          }
-        end,
-        ["ts_ls"] = function()
-          require('lspconfig')['ts_ls'].setup {
-            on_attach = onAttach,
-          }
-        end,
-        ["eslint"] = function()
-          require('lspconfig')['eslint'].setup {
-            on_attach = onAttach,
-          }
-        end,
-        ["cssls"] = function()
-          require('lspconfig')['cssls'].setup {
-            on_attach = onAttach,
-          }
-        end,
-        ["clangd"] = function()
-          require('lspconfig')['clangd'].setup {
-            on_attach = onAttach,
-          }
-        end,
-        ["bashls"] = function()
-          require('lspconfig')['bashls'].setup {
-            on_attach = onAttach,
-          }
-        end,
+        ['zls'] = vim.lsp.config('zls',
+          require("vim.nvim_config.plugins.lsp.zig")(capabilities, onAttach)
+        ),
+        ['gopls'] = vim.lsp.config('gopls',
+          require("vim.nvim_config.plugins.lsp.gopls")(capabilities, onAttach)
+        ),
+        ['lua_ls'] = vim.lsp.config('lua_ls',
+          require("vim.nvim_config.plugins.lsp.luals")['config'](capabilities, onAttach)),
+        ['pylsp'] =
+            vim.lsp.config('pylsp', {
+              on_attach = nil,
+            }),
+        ["ts_ls"] =
+            vim.lsp.config('ts_ls', {
+              on_attach = onAttach,
+              capabilities = capabilities,
+            }),
+        ["eslint"] =
+            vim.lsp.config('eslint', {
+              on_attach = onAttach,
+              capabilities = capabilities,
+            }),
+        ["cssls"] =
+            vim.lsp.config('cssls', {
+              on_attach = onAttach,
+            }),
+        ["clangd"] =
+            vim.lsp.config('clangd', {
+              on_attach = onAttach,
+            }),
+        ["bashls"] =
+            vim.lsp.config('bashls', {
+              on_attach = onAttach,
+            }),
       },
     })
     local cmp_select = { behavior = cmp.SelectBehavior.Select }

@@ -1,5 +1,5 @@
 local function config(capabilities, onAttach)
-  require('lspconfig')['terraformls'].setup {
+  return {
     pattern = { "*.tf", "*.tfvars" },
     callback = vim.lsp.buf.formatting_sync,
     capabilities = capabilities,
