@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+usage() {
+    echo "Usage $0"
+    echo ""
+    echo "Script will search Github for the given keywords. This does not seach git."
+    echo ""
+    echo "gh-search [term-here-to-seach-orgs]"
+    echo ""
+    echo "NOTE: You must have GHE_URL and LIST_GH_ORGS setup in your env"
+    echo "GHE_URL is[$GHE_URL] and LIST_GH_ORGS are [$LIST_GH_ORGS]"
+}
+
+TERM=$1
+
+if [[ $1 == "-h" ]];
+then
+    usage
+    exit 0
+fi
+if [[ -z $TERM ]];
+then
+    usage
+    echo "Please provide a search term"
+    exit 0
+fi
+
+PAT=$(gh auth token)
+
+IFS=";" read -ra SEPERATED <<< "$LIST_GH_ORGS"
+ORGS=""
+for i in "${SEPERATED[@]}"; do
+    if [[ -n $ORGS ]]; then
+        ORGS+="+"
+    fi
+    ORGS+="org:$i"
+done
+
+URL="https://$GHE_URL/api/v3/search/code?q=$TERM+$ORGS"
+
+GH_RESULT=$(curl -s -H "Authorization: token $PAT" $URL)
+
+SELECTION=$(echo $GH_RESULT | jq -r '.items[].html_url' | fzf)
+
+if [[ -z $SELECTION ]];
+then
+    exit 0
+fi
+
+open $SELECTION
