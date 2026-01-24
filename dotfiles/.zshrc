@@ -25,6 +25,11 @@ export EDITOR="nvim"
 # general bins
 export PATH=$HOME/bins/:$PATH
 
+# zsh dont bind ctrl + a
+bindkey -r '^A'
+
+export MANPATH=$HOME/projects/knowledge-base/man:$MANPATH
+
 # TMUX config
 export PATH=$HOME/.config/nvim/lua/vim/bin:$PATH
 bindkey -s ^f "tmux-create-session.sh\n" #assumes vim config above is on path
