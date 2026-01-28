@@ -20,7 +20,7 @@ export PATH=$HOME/projects/misc-utils/bin:$PATH
 export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
-export EDITOR="nvim"
+export EDITOR=nvim
 
 # general bins
 export PATH=$HOME/bins/:$PATH
