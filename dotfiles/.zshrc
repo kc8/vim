@@ -23,7 +23,7 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 export EDITOR=nvim
 
 # general bins
-export PATH=$HOME/bins/:$PATH
+export PATH=$HOME/bins:$PATH
 
 # zsh dont bind ctrl + a
 bindkey -r '^A'
