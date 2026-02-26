@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 LANGUAGE=`echo "java go scala cpp c javascript nodejs sh zig" | tr ' ' '\n'`
-TOOLS=`echo "xargs find mv sed awk jq duckdb" | tr ' ' '\n'`
+TOOLS=`echo "xargs find mv sed awk jq duckdb tar" | tr ' ' '\n'`
 selected=`printf "$LANGUAGE\n$TOOLS" | fzf`
 read -p "Enter Search: " query
 
