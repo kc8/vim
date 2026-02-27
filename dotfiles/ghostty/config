@@ -7,3 +7,4 @@ font-feature=-calt,-lig,dlig
 keybind=ctrl+enter=unbind
 background-blur=false
 gtk-titlebar=false
+macos-titlebar-style=hidden
