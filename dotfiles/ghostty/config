@@ -1,0 +1,10 @@
+
+# Placed in: /home/[user]/.config/ghostty/config
+# Run `ghostty +show-config --default --docs` to view a list of
+
+# No ligmas
+font-feature=-calt,-lig,dlig
+keybind=ctrl+enter=unbind
+background-blur=false
+gtk-titlebar=false
+macos-titlebar-style=hidden

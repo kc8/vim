@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -eq 1 ]]; then
+    selection=$1
+else
+    selection=$(find $THIRD_PARTY_DOCS -mindepth 1 -maxdepth 1  | fzf)
+fi
+
+if [[ -z $selection ]];
+then
+    exit 0
+fi
+
+man $selection

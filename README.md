@@ -34,7 +34,7 @@ Current supported version of neovim is: 0.11
 ## Dot Files
 1. ensure `zsh` is installed
 1. run the script in `./dotfiles/create_additional_config.sh`
-  - this creates a stub script you can add additional configuration to such as environment variables)
+  - this creates a stub script you can add additional configuration to such as more secret environment variables etc.
 1. `ln dotfiles/.zshrc ~/.zshrc`
   - NOTE: use `additional_config.sh` to make changes to .zshrc that should not be reflected in GitHub
 1. tmux has os only config, you will need to uncomment/modify these in `dotfiles/.tmux.conf`
@@ -43,5 +43,4 @@ Current supported version of neovim is: 0.11
 - A list/ shell script that is a WIP: see [tools_install.sh](./tools_install.sh)
 
 ### Ghostty Term settings
-Add the following to the config file
-- Turn off ligatures: `font-feature=-calt,-lig,dlig`
+- See `dotfiles/ghostty/config`

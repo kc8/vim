@@ -20,10 +20,15 @@ export PATH=$HOME/projects/misc-utils/bin:$PATH
 export FLYCTL_INSTALL="$HOME/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
 
-export EDITOR="nvim"
+export EDITOR=nvim
 
 # general bins
-export PATH=$HOME/bins/:$PATH
+export PATH=$HOME/bins:$PATH
+
+# zsh dont bind ctrl + a
+bindkey -r '^A'
+
+export MANPATH=$HOME/projects/knowledge-base/man:$MANPATH
 
 # TMUX config
 export PATH=$HOME/.config/nvim/lua/vim/bin:$PATH
