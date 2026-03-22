@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# source with cftrl a + r
 PLATFORM=$(uname -s)
 
 if [ -f "$HOME/.tmux.conf" ]; then

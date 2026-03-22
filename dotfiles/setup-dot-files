@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+BASE_DIR=$HOME
+
+mkdir -p ~/projects/knowledge-base/man
+
+NVIM_CONFIG=$BASE_DIR/.config/nvim/init.lua
+echo "Setting up NeoVim config in $NVIM_CONFIG"
+
+mkdir -p $BASE_DIR/.config/nvim/lua
+echo 'require("vim")' > "$NVIM_CONFIG"
+
+echo "Copying .zshrc config to $BASE_DIR/.zshrc"
+ZSH_CONFIG="/.zshrc"
+if [ -f "$BASE_DIR/$ZSH_CONFIG" ]; then
+    cp "$BASE_DIR/$ZSH_CONFIG" "$BASE_DIR/$ZSH_CONFIG.autobackup"
+fi
+cp .zshrc ~/.zshrc
+
+GIT_CONFIG=".gitconfig"
+if [ -f "$BASE_DIR/$GIT_CONFIG" ]; then
+    cp "$BASE_DIR/$GIT_CONFIG" "$BASE_DIR/$GIT_CONFIG.autobackup"
+fi
+
+echo "Creating .gitconfig file in $BASE_DIR/$GIT_CONFIG"
+echo '
+[core]
+	editor = nvim
+[push]
+	autoSetupRemote = true
+[alias]
+    tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
+' > $BASE_DIR/.gitconfig
+
+echo "Backing up and creating ghostty config $BASE_DIR/$GHOSTTY_CONFIG"
+GHOSTTY_CONFIG=".config/ghostty/config"
+if [ -f "$BASE_DIR/$GHOSTTY_CONFIG" ]; then
+    cp "$BASE_DIR/$GHOSTTY_CONFIG" "$BASE_DIR/$GHOSTTY_CONFIG.autobackup"
+fi
+cp ghostty/config $BASE_DIR/$GHOSTTY_CONFIG
