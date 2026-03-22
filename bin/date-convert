@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+    echo "Usage $0"
+    echo ""
+    echo "Pass in DATE and CONVERT_TO_TIMEZONE (EDT, UTC or Z)"
+    echo ""
+    echo "Must have GNU Utils Date on path. the date-timetsamp does not need to call out the
+    timestamp. the CONVERT_TO_TIMEZONE is the one you convert to!"
+    echo ""
+    echo "examples:"
+    echo "date-convert \"2026-03-25 19:00:00\" UTC"
+    echo "date-convert \"2026-03-25 19:00:00\" Z"
+    echo "date-convert \"2026-03-25 19:00:00\" EDT"
+    echo ""
+    echo "under thehood it does something like: date -d \"2026-03-25 19:00:00 EDT\" -u +\"%Y-%m-%dT%H:%M:%SZ\""
+    echo ""
+}
+
+if [[ -z "${1:-}" ]]
+then
+    usage
+    echo "Please provide input"
+    exit 0
+fi
+
+DATE=$1
+CONVERT_TO_TIMEZONE=$2
+if [[ -z "$DATE" ]] || [[ -z "$CONVERT_TO_TIMEZONE" ]];
+then
+    usage
+    echo "Please provide input"
+    exit 0
+fi
+
+if [[ $CONVERT_TO_TIMEZONE == "EDT" ]];
+then
+  #TZ="America/New_York" date -d "2026-03-23T23:00:00Z"
+  TZ="America/New_York" date -d "$DATE""Z" +"%Y-%m-%dT%H:%M:%S"
+  exit 0
+fi
+if [[ $CONVERT_TO_TIMEZONE == "UTC" ]] || [[ $CONVERT_TO_TIMEZONE == "Z" ]];
+then
+  date -d "$DATE EDT" -u +"%Y-%m-%dT%H:%M:%SZ"
+  # example: date -d "2026-03-25 19:00:00 EDT" -u +"%Y-%m-%dT%H:%M:%SZ"
+  exit 0
+fi
+
