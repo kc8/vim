@@ -63,8 +63,8 @@ vim.keymap.set("n", "<leader>Y", [["+Y]])
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
 
 local currentCursorLine = function()
-  local r, _ = vim.api.nvim_win_get_cursor(0)
-  return "<cmd>" .. r[1] .. "GBrowse<CR>"
+    local r, _ = vim.api.nvim_win_get_cursor(0)
+    return "<cmd>" .. r[1] .. "GBrowse<CR>"
 end
 
 vim.keymap.set("n", "<Leader>gt", currentCursorLine)
@@ -79,14 +79,14 @@ vim.keymap.set("n", "<Leader>ce", ":copen<CR>")
 
 local yankgroup = autogroup('highlightOnYank', {})
 autocmd('TextYankPost', {
-  group = yankgroup,
-  pattern = '*',
-  callback = function()
-    vim.hl.on_yank({
-      higroup = 'IncSearch',
-      timeout = 40,
-    })
-  end,
+    group = yankgroup,
+    pattern = '*',
+    callback = function()
+        vim.hl.on_yank({
+            higroup = 'IncSearch',
+            timeout = 40,
+        })
+    end,
 })
 
 --  Open netrw in new vsp
@@ -120,3 +120,7 @@ vim.cmd([[let g:terraform_align=1]])
 -- Not having this will cause a `C` char to appear at the end of sql file types when using ctl-c
 vim.g.ftplugin_sql_omni_key = '<C-kk>'
 
+-- note: when lsp is enabled the default for ctags <C-]> is disabled, I think this leader key is better anyway
+vim.keymap.set('n', '<leader>d', function()
+    vim.cmd('tag ' .. vim.fn.expand('<cword>'))
+end)
