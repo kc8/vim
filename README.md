@@ -1,3 +1,5 @@
+# Moved to [https://codeberg.org/kc8/dotfiles](https://codeberg.org/kc8/dotfiles)
+
 # Neovim Configuration and Tools
 
 Current supported version of neovim is: 0.11
